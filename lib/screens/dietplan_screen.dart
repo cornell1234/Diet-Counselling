@@ -127,7 +127,9 @@ class dietplanScreenState extends State<dietplanScreen> {
                       ),
                     ]),
               )
-            ])));
+            ]))
+            //The bottom Navigation should be here
+            );
             bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -158,7 +160,6 @@ class dietplanScreenState extends State<dietplanScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => ManageScreen()),
               );
-            }
-          }),
+           }}),
   }
 }
