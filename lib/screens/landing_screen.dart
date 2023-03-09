@@ -1,3 +1,4 @@
+import 'package:diet_counselling/screens/dietplan_screen.dart';
 import 'package:flutter/material.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -11,7 +12,7 @@ class LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
-    final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 3.5;
+    final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 3.2;
     final double itemWidth = deviceSize.width / 2;
 
     return Scaffold(
@@ -34,11 +35,53 @@ class LandingScreenState extends State<LandingScreen> {
                 child: Column(
                   children: [
                     Image(
-                      image: AssetImage('assets/icons/healthy_food_64px.png'),
+                      image: AssetImage('assets/icons/calculator_64px.png'),
                       height: 100,
                       width: 100,
                     ),
-                    Text('Diet')
+                    Text('BMI Calculation')
+                  ],
+                ),
+              ),
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => dietplanScreen()),
+                  );
+                },
+                child: Container(
+                  height: deviceSize.height * 0.2,
+                  width: deviceSize.width * 0.1,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Column(
+                    children: [
+                      Image(
+                        image: AssetImage('assets/icons/healthy_food_64px.png'),
+                        height: 100,
+                        width: 100,
+                      ),
+                      Text('Personal Diet Plan')
+                    ],
+                  ),
+                ),
+              ),
+              Container(
+                height: deviceSize.height * 0.2,
+                width: deviceSize.width * 0.1,
+                decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20.0)),
+                child: Column(
+                  children: [
+                    Image(
+                      image: AssetImage('assets/icons/notification_64px.png'),
+                      height: 100,
+                      width: 100,
+                    ),
+                    Text('Reminder Notifications')
                   ],
                 ),
               ),
@@ -51,11 +94,11 @@ class LandingScreenState extends State<LandingScreen> {
                 child: Column(
                   children: [
                     Image(
-                      image: AssetImage('assets/icons/healthy_food_64px.png'),
+                      image: AssetImage('assets/icons/doctors_folder_64px.png'),
                       height: 100,
                       width: 100,
                     ),
-                    Text('Diet')
+                    Text('Doctor Appointment')
                   ],
                 ),
               ),
@@ -68,11 +111,11 @@ class LandingScreenState extends State<LandingScreen> {
                 child: Column(
                   children: [
                     Image(
-                      image: AssetImage('assets/icons/healthy_food_64px.png'),
+                      image: AssetImage('assets/icons/ai_64px.png'),
                       height: 100,
                       width: 100,
                     ),
-                    Text('Diet')
+                    Text('AI assistant')
                   ],
                 ),
               ),
@@ -85,45 +128,11 @@ class LandingScreenState extends State<LandingScreen> {
                 child: Column(
                   children: [
                     Image(
-                      image: AssetImage('assets/icons/healthy_food_64px.png'),
+                      image: AssetImage('assets/icons/graph_64px.png'),
                       height: 100,
                       width: 100,
                     ),
-                    Text('Diet')
-                  ],
-                ),
-              ),
-              Container(
-                height: deviceSize.height * 0.2,
-                width: deviceSize.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/icons/healthy_food_64px.png'),
-                      height: 100,
-                      width: 100,
-                    ),
-                    Text('Diet')
-                  ],
-                ),
-              ),
-              Container(
-                height: deviceSize.height * 0.2,
-                width: deviceSize.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/icons/healthy_food_64px.png'),
-                      height: 100,
-                      width: 100,
-                    ),
-                    Text('Diet')
+                    Text('Progress Report')
                   ],
                 ),
               ),
