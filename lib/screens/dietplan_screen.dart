@@ -35,8 +35,130 @@ class dietplanScreenState extends State<dietplanScreen> {
                           children: [Text('Day'), Text('1')],
                         ),
                       ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('2')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('3')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('4')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('5')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('6')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('7')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('8')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('9')],
+                        ),
+                      ),
+                      Container(
+                        height: deviceSize.height * 0.2,
+                        width: deviceSize.width * 0.1,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20.0)),
+                        child: Column(
+                          children: [Text('Day'), Text('10')],
+                        ),
+                      ),
                     ]),
               )
             ])));
+            bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('assets/icons/icons8-adjust-50.png')),
+              label: 'Control',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(
+                AssetImage('assets/icons/icons8-home-page-50.png'),
+              ),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(
+                  AssetImage('assets/icons/icons8-sales-performance-50.png')),
+              label: 'Manage',
+            ),
+          ],
+          currentIndex: 1,
+          onTap: (int index) {
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ControlScreen()),
+              );
+            } else if (index == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => ManageScreen()),
+              );
+            }
+          }),
   }
 }
