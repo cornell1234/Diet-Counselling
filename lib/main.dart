@@ -1,7 +1,15 @@
 import 'package:diet_counselling/splash_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 void main() {
+  SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
+    statusBarColor: Colors.transparent,
+    statusBarIconBrightness: Brightness.dark,
+    statusBarBrightness: Brightness.dark,
+    systemNavigationBarColor: Color.fromARGB(255, 0, 0, 0),
+    systemNavigationBarIconBrightness: Brightness.dark,
+  ));
   runApp(const MyApp());
 }
 
@@ -13,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-          primarySwatch: Colors.blue,
+          primaryColor: const Color(0xFF010101),
           scaffoldBackgroundColor: Color.fromARGB(255, 238, 238, 238)),
       home: const Splash_screen(),
     );
