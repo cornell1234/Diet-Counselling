@@ -1,3 +1,4 @@
+import 'package:diet_counselling/screens/appointment_screen.dart';
 import 'package:diet_counselling/screens/dietplan_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -85,21 +86,31 @@ class LandingScreenState extends State<LandingScreen> {
                   ],
                 ),
               ),
-              Container(
-                height: deviceSize.height * 0.2,
-                width: deviceSize.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/icons/doctors_folder_64px.png'),
-                      height: 100,
-                      width: 100,
-                    ),
-                    Text('Doctor Appointment')
-                  ],
+              InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => appointmentScreen()),
+                  );
+                },
+                child: Container(
+                  height: deviceSize.height * 0.2,
+                  width: deviceSize.width * 0.1,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20.0)),
+                  child: Column(
+                    children: [
+                      Image(
+                        image:
+                            AssetImage('assets/icons/doctors_folder_64px.png'),
+                        height: 100,
+                        width: 100,
+                      ),
+                      Text('Doctor Appointment')
+                    ],
+                  ),
                 ),
               ),
               Container(
