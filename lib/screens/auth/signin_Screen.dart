@@ -7,16 +7,8 @@ class signinForm extends StatefulWidget {
 
 class _signinFormState extends State<signinForm> {
   final _formKey = GlobalKey<FormState>();
-  String _username;
-  String _password;
-
-  void _submitForm() {
-    if (_formKey.currentState.validate()) {
-      _formKey.currentState.save();
-      print('Username: $_username');
-      print('Password: $_password');
-    }
-  }
+  final username = TextEditingController();
+  final password = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -33,34 +25,18 @@ class _signinFormState extends State<signinForm> {
             children: <Widget>[
               TextFormField(
                 decoration: InputDecoration(labelText: 'Username'),
-                validator: (value) {
-                  if (value.trim().isEmpty) {
-                    return 'Please enter your username';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _username = value;
-                },
+                controller: username,
               ),
               TextFormField(
                 obscureText: true,
                 decoration: InputDecoration(labelText: 'Password'),
-                validator: (value) {
-                  if (value.trim().isEmpty) {
-                    return 'please enter your password';
-                  }
-                  return null;
-                },
-                onSaved: (value) {
-                  _password = value;
-                },
+                controller: password,
               ),
               Padding(
-                padding: EdgeInsets.symmetric(vertical: 16.0),
+                padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: RaisedButton(
-                  onPressed: _submitForm,
-                  child: Text('Sign In'),
+                  onPressed: () {},
+                  child: Text(' Sign in'),
                 ),
               ),
             ],
