@@ -1,3 +1,4 @@
+import 'package:diet_counselling/screens/auth/signin_Screen.dart';
 import 'package:diet_counselling/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -19,8 +20,8 @@ class Splash_screenState extends State<Splash_screen> {
   _navigatetohome() async {
     await Future.delayed(const Duration(milliseconds: 3500), () {});
     //ignore: use build_content_synchronously
-    Navigator.pushReplacement(context,
-        MaterialPageRoute(builder: (context) => const LandingScreen()));
+    Navigator.pushReplacement(
+        context, MaterialPageRoute(builder: (context) => signinForm()));
   }
 
   @override
@@ -39,14 +40,13 @@ class Splash_screenState extends State<Splash_screen> {
           // SizedBox(
           //   height: 10,
           // ),
-          Text( 
-          ' Diet Counselling',
-          textAlign: TextAlign.center,
-          style:TextStyle(
-             decoration: TextDecoration.none,
-             fontSize: 18,
-             color: Color.fromARGB(255, 255, 22, 22)
-           ),
+          Text(
+            ' Diet Counselling',
+            textAlign: TextAlign.center,
+            style: TextStyle(
+                decoration: TextDecoration.none,
+                fontSize: 18,
+                color: Color.fromARGB(255, 255, 22, 22)),
           ),
         ],
       ),

@@ -1,3 +1,4 @@
+import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 
 class signinForm extends StatefulWidget {
@@ -8,7 +9,8 @@ class signinForm extends StatefulWidget {
 class _signinFormState extends State<signinForm> {
   final _formKey = GlobalKey<FormState>();
   final username = TextEditingController();
-  final password = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+  final TextEditingController usernameController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,14 +25,13 @@ class _signinFormState extends State<signinForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Username'),
-                controller: username,
+              CustomTextField(
+                label: 'Username',
+                controller: usernameController,
               ),
-              TextFormField(
-                obscureText: true,
-                decoration: InputDecoration(labelText: 'Password'),
-                controller: password,
+              CustomTextField(
+                label: 'Password',
+                controller: passwordController,
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
