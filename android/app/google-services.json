@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "903343748841",
+    "project_id": "bmi-system-8285c",
+    "storage_bucket": "bmi-system-8285c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:903343748841:android:ba57d434b1675040bda278",
+        "android_client_info": {
+          "package_name": "com.example.diet_counselling"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "903343748841-bsl79ipkus8glgf3b187q91sn868f54o.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDIoOowMrNKiv0oI0-WEh-LJMX7rwETQO0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "903343748841-8lj2rfao01bqve9tud3u0k5epog1blvq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

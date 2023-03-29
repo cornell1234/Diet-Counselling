@@ -1,8 +1,15 @@
+import 'package:diet_counselling/provider/auth_provider.dart';
 import 'package:diet_counselling/splash_screen.dart';
+import 'package:diet_counselling/utils/service_locator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:provider/provider.dart';
 
 void main() {
+  initGetit();
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => locator<AuthProvider>()),
+  ], child: const MyApp()));
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
     statusBarIconBrightness: Brightness.dark,
@@ -10,7 +17,6 @@ void main() {
     systemNavigationBarColor: Color.fromARGB(255, 0, 0, 0),
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
-  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
