@@ -52,7 +52,7 @@ class _registrationFormState extends State<registrationForm> {
               ),
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: RaisedButton(
+                child: ElevatedButton(
                   onPressed: () {},
                   child: Text('Register'),
                 ),

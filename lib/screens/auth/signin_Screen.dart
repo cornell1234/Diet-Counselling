@@ -18,29 +18,31 @@ class _signinFormState extends State<signinForm> {
       appBar: AppBar(
         title: Text('Sign In'),
       ),
-      body: Padding(
-        padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              CustomTextField(
-                label: 'Username',
-                controller: usernameController,
-              ),
-              CustomTextField(
-                label: 'Password',
-                controller: passwordController,
-              ),
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 16.0),
-                child: RaisedButton(
-                  onPressed: () {},
-                  child: Text(' Sign in'),
+      body: Center(
+        child: Padding(
+          padding: EdgeInsets.all(16.0),
+          child: Form(
+            key: _formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: <Widget>[
+                CustomTextField(
+                  label: 'Username',
+                  controller: usernameController,
                 ),
-              ),
-            ],
+                CustomTextField(
+                  label: 'Password',
+                  controller: passwordController,
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () {},
+                    child: Text(' Sign in'),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
