@@ -1,10 +1,21 @@
+import 'package:diet_counselling/models/user_model.dart';
 import 'package:diet_counselling/services/auth_services.dart';
-import 'package:diet_counselling/utils/service_locator.dart';
+
 import 'package:flutter/material.dart';
 
 class AuthProvider extends ChangeNotifier {
-  AuthService api = locator<AuthService>();
+  final AuthService _authService = AuthService();
+  User? _user;
 
-  ApiResponse<Auth> _auth = ApiResponse.loading('');
-  ApiResponse<Auth> get auth => _auth;
+  User? get user => _user;
+
+  Future<void> signInWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      _user = await _authService.signInWithEmailAndPassword(email, password);
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+    }
+  }
 }

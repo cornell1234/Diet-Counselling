@@ -1,5 +1,7 @@
+import 'package:diet_counselling/provider/auth_provider.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class signinForm extends StatefulWidget {
   @override
@@ -14,6 +16,7 @@ class _signinFormState extends State<signinForm> {
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Sign In'),
@@ -37,7 +40,15 @@ class _signinFormState extends State<signinForm> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () async {
+                      if (_formKey.currentState!.validate()) {
+                        await authProvider.signInWithEmailAndPassword(
+                            usernameController.text, passwordController.text);
+                        // handle authentication success
+                      } else {
+                        // handle validation errors
+                      }
+                    },
                     child: Text(' Sign in'),
                   ),
                 ),
