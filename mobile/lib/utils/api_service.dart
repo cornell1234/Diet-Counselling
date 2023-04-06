@@ -1,6 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
+import 'package:diet_counselling/utils/constants.dart';
+import 'package:diet_counselling/utils/error_handling.dart';
+
 class BaseApi {
   final String baseURL = BASE_URL;
   Future<dynamic> get(String url, Map<String, String> params) async {
@@ -81,11 +85,11 @@ class BaseApi {
       case 409:
         throw UnauthorisedException(response.body.toString());
       case 408:
-        throw RequestTimeoutException(response.body.toString());
+        throw RequestTimedoutException(response.body.toString());
       case 500:
         throw InternalServerErrorException(response.body.toString());
       case 503:
-        throw SericeUnavailableException(response.body.toString());
+        throw ServiceUnavailableException(response.body.toString());
       default:
         throw FetchDataException(
             'Error occured while Communication with Server with StatusCode : ${response.statusCode}');
