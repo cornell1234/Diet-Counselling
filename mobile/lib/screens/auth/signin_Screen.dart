@@ -12,7 +12,7 @@ class _signinFormState extends State<signinForm> {
   final _formKey = GlobalKey<FormState>();
   final username = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController usernameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class _signinFormState extends State<signinForm> {
               children: <Widget>[
                 CustomTextField(
                   label: 'Username',
-                  controller: usernameController,
+                  controller: emailController,
                 ),
                 CustomTextField(
                   label: 'Password',
@@ -42,8 +42,9 @@ class _signinFormState extends State<signinForm> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (_formKey.currentState!.validate()) {
+                        print(emailController.text + passwordController.text);
                         await authProvider.signInWithEmailAndPassword(
-                            usernameController.text, passwordController.text);
+                            emailController.text, passwordController.text);
                         // handle authentication success
                       } else {
                         // handle validation errors

@@ -1,11 +1,14 @@
 import 'package:diet_counselling/provider/auth_provider.dart';
 import 'package:diet_counselling/splash_screen.dart';
 import 'package:diet_counselling/utils/service_locator.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   initGetit();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => locator<AuthProvider>()),
@@ -18,6 +21,7 @@ void main() {
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
