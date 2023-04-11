@@ -1,4 +1,5 @@
 import 'package:diet_counselling/provider/auth_provider.dart';
+import 'package:diet_counselling/screens/auth/registration_Screen.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -50,7 +51,19 @@ class _signinFormState extends State<signinForm> {
                         // handle validation errors
                       }
                     },
-                    child: Text(' Sign in'),
+                    child: Text(' SIGN IN'),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
+                  child: ElevatedButton(
+                    onPressed: () async {
+                      Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => registrationForm()));
+                    },
+                    child: const Text('SIGN UP'),
                   ),
                 ),
               ],

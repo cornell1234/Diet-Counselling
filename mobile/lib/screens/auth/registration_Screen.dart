@@ -1,4 +1,6 @@
+import 'package:diet_counselling/provider/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class registrationForm extends StatefulWidget {
   @override
@@ -7,15 +9,13 @@ class registrationForm extends StatefulWidget {
 
 class _registrationFormState extends State<registrationForm> {
   final _formKey = GlobalKey<FormState>();
-  final fullname = TextEditingController();
-  final age = TextEditingController();
-  final location = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
   final confirmpassword = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
+    final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text('Registration Form'),
@@ -27,19 +27,6 @@ class _registrationFormState extends State<registrationForm> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              TextFormField(
-                decoration: InputDecoration(labelText: 'FullName'),
-                controller: fullname,
-              ),
-              TextFormField(
-                decoration: InputDecoration(labelText: 'Age'),
-                keyboardType: TextInputType.number,
-                controller: age,
-              ),
-              TextFormField(
-                decoration: const InputDecoration(labelText: 'Location'),
-                controller: location,
-              ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
@@ -58,8 +45,18 @@ class _registrationFormState extends State<registrationForm> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 16.0),
                 child: ElevatedButton(
-                  onPressed: () {},
-                  child: Text('Register'),
+                  onPressed: () async {
+                    if (password.text == confirmpassword.text) {
+                      if (_formKey.currentState!.validate()) {
+                        await authProvider.registerWithEmailAndPassword(
+                            email.text, password.text);
+                        // handle authentication success
+                      } else {
+                        // handle validation errors
+                      }
+                    } else {}
+                  },
+                  child: const Text('Register'),
                 ),
               ),
             ],
