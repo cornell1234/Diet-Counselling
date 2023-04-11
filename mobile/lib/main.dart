@@ -1,4 +1,5 @@
 import 'package:diet_counselling/provider/auth_provider.dart';
+import 'package:diet_counselling/provider/patient_provider.dart';
 import 'package:diet_counselling/splash_screen.dart';
 import 'package:diet_counselling/utils/service_locator.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -12,6 +13,7 @@ void main() async {
   initGetit();
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => locator<AuthProvider>()),
+    ChangeNotifierProvider(create: (_) => locator<PatientProvider>()),
   ], child: const MyApp()));
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.transparent,
@@ -21,7 +23,6 @@ void main() async {
     systemNavigationBarIconBrightness: Brightness.dark,
   ));
 }
-
 
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
