@@ -1,4 +1,5 @@
 import 'package:diet_counselling/provider/auth_provider.dart';
+import 'package:diet_counselling/screens/auth/reg_details.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -50,7 +51,10 @@ class _registrationFormState extends State<registrationForm> {
                       if (_formKey.currentState!.validate()) {
                         await authProvider.registerWithEmailAndPassword(
                             email.text, password.text);
-                        // handle authentication success
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => regDetails()),
+                        );
                       } else {
                         // handle validation errors
                       }
