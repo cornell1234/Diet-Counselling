@@ -9,6 +9,7 @@ class _registrationFormState extends State<registrationForm> {
   final _formKey = GlobalKey<FormState>();
   final fullname = TextEditingController();
   final age = TextEditingController();
+  final location = TextEditingController();
   final email = TextEditingController();
   final password = TextEditingController();
   final confirmpassword = TextEditingController();
@@ -34,6 +35,10 @@ class _registrationFormState extends State<registrationForm> {
                 decoration: InputDecoration(labelText: 'Age'),
                 keyboardType: TextInputType.number,
                 controller: age,
+              ),
+              TextFormField(
+                decoration: const InputDecoration(labelText: 'Location'),
+                controller: location,
               ),
               TextFormField(
                 decoration: InputDecoration(labelText: 'Email'),

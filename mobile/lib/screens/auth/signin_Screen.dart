@@ -10,7 +10,7 @@ class signinForm extends StatefulWidget {
 
 class _signinFormState extends State<signinForm> {
   final _formKey = GlobalKey<FormState>();
-  final username = TextEditingController();
+  final email = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
@@ -30,7 +30,7 @@ class _signinFormState extends State<signinForm> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 CustomTextField(
-                  label: 'Username',
+                  label: 'Email',
                   controller: emailController,
                 ),
                 CustomTextField(

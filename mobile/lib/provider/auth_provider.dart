@@ -9,10 +9,19 @@ class AuthProvider extends ChangeNotifier {
 
   User? get user => _user;
 
-  Future<void> signInWithEmailAndPassword(
-      String email, String password) async {
+  Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
       _user = await _authService.signInWithEmailAndPassword(email, password);
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  Future<void> registerWithEmailAndPassword(
+      String email, String password) async {
+    try {
+      _user = await _authService.registerWithEmailAndPassword(email, password);
       notifyListeners();
     } catch (error) {
       print(error.toString());
