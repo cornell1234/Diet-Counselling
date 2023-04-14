@@ -16,12 +16,11 @@ void main() async {
     ChangeNotifierProvider(create: (_) => locator<PatientProvider>()),
   ], child: const MyApp()));
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
-    statusBarIconBrightness: Brightness.dark,
-    statusBarBrightness: Brightness.dark,
-    systemNavigationBarColor: Color.fromARGB(255, 0, 0, 0),
-    systemNavigationBarIconBrightness: Brightness.dark,
-  ));
+      statusBarColor: Color.fromARGB(0, 255, 255, 255),
+      statusBarIconBrightness: Brightness.dark,
+      statusBarBrightness: Brightness.dark,
+      systemNavigationBarColor: Color.fromARGB(255, 248, 248, 248),
+      systemNavigationBarIconBrightness: Brightness.dark));
 }
 
 class MyApp extends StatelessWidget {
@@ -33,7 +32,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: const Color(0xFF010101),
-          scaffoldBackgroundColor: Color.fromARGB(255, 238, 238, 238)),
+          scaffoldBackgroundColor: Color.fromARGB(255, 255, 255, 255)),
       home: const Splash_screen(),
     );
   }

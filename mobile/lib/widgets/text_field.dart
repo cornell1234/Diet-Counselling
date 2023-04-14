@@ -9,21 +9,21 @@ class CustomTextField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TextFormField(
-      decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.blue),
-            borderRadius: BorderRadius.circular(5.5),
-          ),
-          prefixIcon: const Icon(
-            Icons.person,
-            color: Colors.blue,
-          ),
-          labelText: label,
-          labelStyle: const TextStyle(color: Colors.blue),
-          filled: true,
-          fillColor: Colors.blue[50]),
-      controller: controller,
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(0, 8, 0, 8),
+      child: TextFormField(
+        decoration: InputDecoration(
+            enabledBorder: OutlineInputBorder(
+              borderSide: const BorderSide(color: Colors.transparent),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            focusedBorder: InputBorder.none, 
+            labelText: label,
+            labelStyle: const TextStyle(color: Colors.grey),
+            filled: true,
+            fillColor: Colors.grey[100]),
+        controller: controller,
+      ),
     );
   }
 }
