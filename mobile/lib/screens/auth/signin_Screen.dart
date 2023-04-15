@@ -232,7 +232,7 @@ class _signinFormState extends State<signinForm> {
                               color: Colors.grey,
                             ),
                             children: <TextSpan>[
-                              const TextSpan(text: 'Not have an account yet?'),
+                              const TextSpan(text: 'Dont have an account yet?'),
                               TextSpan(
                                   text: 'Sign Up',
                                   style: TextStyle(color: Colors.grey[600])),
