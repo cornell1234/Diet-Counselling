@@ -60,16 +60,14 @@ class _ChatScreenState extends State<ChatScreen> {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               TextButton(
-                onPressed: () {
-                },
+                onPressed: () {},
                 child: const Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text('Photo'),
                 ),
               ),
               TextButton(
-                onPressed: () {
-                },
+                onPressed: () {},
                 child: const Align(
                   alignment: AlignmentDirectional.centerStart,
                   child: Text('File'),
