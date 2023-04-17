@@ -42,7 +42,7 @@ class Splash_screenState extends State<Splash_screen> {
           ),
           Center(
             child: Text(
-              'Diet Counselling Mobile Application',
+              'Diet Counselling',
               textAlign: TextAlign.center,
               style: TextStyle(
                   decoration: TextDecoration.none,
