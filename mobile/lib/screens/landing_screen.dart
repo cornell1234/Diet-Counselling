@@ -14,153 +14,223 @@ class LandingScreenState extends State<LandingScreen> {
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
-    final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 3.2;
+    final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 4.2;
     final double itemWidth = deviceSize.width / 2;
 
     return Scaffold(
-        body: Padding(
-      padding: const EdgeInsets.all(10.0),
-      child: Column(children: [
-        Expanded(
-          child: GridView.count(
-            mainAxisSpacing: 20.0,
-            crossAxisSpacing: 20.0,
-            crossAxisCount: 2,
-            childAspectRatio: (itemWidth / itemHeight),
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
+        child: Column(children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Container(
-                height: deviceSize.height * 0.2,
-                width: deviceSize.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/icons/calculator_64px.png'),
-                      height: 100,
-                      width: 100,
-                    ),
-                    Text('BMI Calculation')
-                  ],
+              Text(
+                'Hello Cornell',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.grey[900],
                 ),
               ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => dietplanScreen()),
-                  );
-                },
-                child: Container(
-                  height: deviceSize.height * 0.2,
-                  width: deviceSize.width * 0.1,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Column(
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Stack(
                     children: [
-                      Image(
-                        image: AssetImage('assets/icons/healthy_food_64px.png'),
-                        height: 100,
-                        width: 100,
+                      IconButton(
+                        iconSize: 30,
+                        onPressed: () {
+                          // your code here
+                        },
+                        icon: Icon(Icons.notifications_none_rounded),
                       ),
-                      Text('Personal Diet Plan')
+                      Positioned(
+                        top: 6.0,
+                        right: 6.0,
+                        child: Container(
+                          padding: EdgeInsets.all(2.0),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          constraints: BoxConstraints(
+                            minWidth: 16.0,
+                            minHeight: 16.0,
+                          ),
+                          child: Text(
+                            '2',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 10.0,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      ),
                     ],
                   ),
-                ),
-              ),
-              Container(
-                height: deviceSize.height * 0.2,
-                width: deviceSize.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/icons/notification_64px.png'),
-                      height: 100,
-                      width: 100,
-                    ),
-                    Text('Reminder Notifications')
-                  ],
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => appointmentScreen()),
-                  );
-                },
-                child: Container(
-                  height: deviceSize.height * 0.2,
-                  width: deviceSize.width * 0.1,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Column(
-                    children: [
-                      Image(
-                        image:
-                            AssetImage('assets/icons/doctors_folder_64px.png'),
-                        height: 100,
-                        width: 100,
-                      ),
-                      Text('Doctor Appointment')
-                    ],
+                  IconButton(
+                    iconSize: 30,
+                    onPressed: () {
+                      // your code here
+                    },
+                    icon: Icon(Icons.person_2_outlined),
                   ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => ChatScreen()),
-                  );
-                },
-                child: Container(
-                  height: deviceSize.height * 0.2,
-                  width: deviceSize.width * 0.1,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(20.0)),
-                  child: Column(
-                    children: [
-                      Image(
-                        image: AssetImage('assets/icons/ai_64px.png'),
-                        height: 100,
-                        width: 100,
-                      ),
-                      Text('AI assistant')
-                    ],
-                  ),
-                ),
-              ),
-              Container(
-                height: deviceSize.height * 0.2,
-                width: deviceSize.width * 0.1,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20.0)),
-                child: Column(
-                  children: [
-                    Image(
-                      image: AssetImage('assets/icons/graph_64px.png'),
-                      height: 100,
-                      width: 100,
-                    ),
-                    Text('Progress Report')
-                  ],
-                ),
-              ),
+                ],
+              )
             ],
           ),
-        )
-      ]),
-    ));
+          Expanded(
+            child: GridView.count(
+              mainAxisSpacing: 20.0,
+              crossAxisSpacing: 20.0,
+              crossAxisCount: 4,
+              childAspectRatio: (itemWidth / itemHeight),
+              children: [
+                Container(
+                  decoration: BoxDecoration(
+                      color: Colors.grey[200],
+                      borderRadius: BorderRadius.circular(8.0)),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: const [
+                        Image(
+                          image: AssetImage('assets/icons/calculator_64px.png'),
+                          height: 40,
+                          width: 40,
+                        ),
+                        Text('BMI')
+                      ],
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => dietplanScreen()),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: const [
+                          Image(
+                            image: AssetImage(
+                                'assets/icons/healthy_food_64px.png'),
+                            height: 40,
+                            width: 40,
+                          ),
+                          Text('Diet Plan')
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => appointmentScreen()),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: const [
+                          Image(
+                            image: AssetImage(
+                                'assets/icons/doctors_folder_64px.png'),
+                            height: 40,
+                            width: 40,
+                          ),
+                          Text('Appt')
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => ChatScreen()),
+                    );
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: const [
+                          Image(
+                            image: AssetImage('assets/icons/intelligence_50px.png'),
+                            height: 40,
+                            width: 40,
+                          ),
+                          Text('assistant')
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ]),
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home_outlined),
+              label: 'Home',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('assets/icons/healthy_food_50px.png')),
+              label: 'Diet',
+            ),
+            BottomNavigationBarItem(
+              icon:
+                  ImageIcon(AssetImage('assets/icons/health_checkup_50px.png')),
+              label: 'Appointment',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('assets/icons/intelligence_50px.png')),
+              label: 'AI Assistant',
+            ),
+            BottomNavigationBarItem(
+              icon: ImageIcon(AssetImage('assets/icons/graph_report_50px.png')),
+              label: 'Report',
+            ),
+          ],
+          currentIndex: 0,
+          unselectedItemColor: Colors.black,
+          selectedItemColor: Colors.blue,
+          onTap: (int index) {
+            if (index == 0) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LandingScreen()),
+              );
+            } else if (index == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LandingScreen()),
+              );
+            }
+          }),
+    );
   }
 }
