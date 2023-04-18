@@ -7,23 +7,28 @@ class AppointmentService {
 
   Future<List<Appointment>> getAppointments() async {
     final snapshot = await _appointmentsCollection.get();
-    return snapshot.docs.map((doc) => Appointment(
-          id: doc.id,
-          title: doc['title'],
-          dateTime: doc['dateTime'].toDate(),
-          location: doc['location'],
-        )).toList();
+    return snapshot.docs
+        .map((doc) => Appointment(
+              id: doc.id,
+              email: doc['email'],
+              title: doc['title'],
+              dateTime: doc['dateTime'].toDate(),
+              location: doc['location'],
+            ))
+        .toList();
   }
 
   Future<Appointment> addAppointment(
-      String title, DateTime dateTime, String location) async {
+      String email, String title, DateTime dateTime, String location) async {
     final docRef = await _appointmentsCollection.add({
+      'email': email,
       'title': title,
       'dateTime': dateTime,
       'location': location,
     });
     return Appointment(
       id: docRef.id,
+      email: email,
       title: title,
       dateTime: dateTime,
       location: location,
