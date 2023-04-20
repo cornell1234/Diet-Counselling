@@ -19,7 +19,7 @@ class AppointmentService {
   }
 
 
-  //Modify it in a way that it should check first if the doctor is not booked at that dateTime
+  //Modify the add function in a way that it should check first if the doctor is not booked at that dateTime
   Future<Appointment> addAppointment(
       String email, String title, DateTime dateTime, String location) async {
     final docRef = await _appointmentsCollection.add({
