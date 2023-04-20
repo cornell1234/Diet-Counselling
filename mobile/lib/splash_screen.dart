@@ -1,5 +1,3 @@
-import 'package:diet_counselling/screens/auth/signin_Screen.dart';
-import 'package:diet_counselling/screens/bmi_screen.dart';
 import 'package:diet_counselling/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -22,7 +20,7 @@ class Splash_screenState extends State<Splash_screen> {
     await Future.delayed(const Duration(milliseconds: 3500), () {});
     //ignore: use build_content_synchronously
     Navigator.pushReplacement(
-        context, MaterialPageRoute(builder: (context) => bmiScreen()));
+        context, MaterialPageRoute(builder: (context) => LandingScreen()));
   }
 
   @override

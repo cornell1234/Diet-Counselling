@@ -1,6 +1,8 @@
 import 'package:diet_counselling/screens/appointment_screen.dart';
 import 'package:diet_counselling/screens/chat_screen.dart';
 import 'package:diet_counselling/screens/dietplan_screen.dart';
+import 'package:diet_counselling/widgets/BMI_dialog.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -87,21 +89,31 @@ class LandingScreenState extends State<LandingScreen> {
               crossAxisCount: 4,
               childAspectRatio: (itemWidth / itemHeight),
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                      color: Colors.grey[200],
-                      borderRadius: BorderRadius.circular(8.0)),
-                  child: Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Column(
-                      children: const [
-                        Image(
-                          image: AssetImage('assets/icons/calculator_64px.png'),
-                          height: 40,
-                          width: 40,
-                        ),
-                        Text('BMI')
-                      ],
+                InkWell(
+                  onTap: (){
+                    showCupertinoDialog(
+                          context: context,
+                          barrierDismissible: true,
+                          builder: (context) {
+                            return BMIDialog();
+                          });
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.grey[200],
+                        borderRadius: BorderRadius.circular(8.0)),
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: const [
+                          Image(
+                            image: AssetImage('assets/icons/calculator_64px.png'),
+                            height: 40,
+                            width: 40,
+                          ),
+                          Text('BMI')
+                        ],
+                      ),
                     ),
                   ),
                 ),
