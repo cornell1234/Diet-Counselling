@@ -18,54 +18,6 @@ class AppointmentService {
         .toList();
   }
 
-  //Modify the add function in a way that it should check first if the doctor is not booked at that dateTime
-  class DoctorSchedule {
-  DateTime startTime;
-  DateTime endTime;
-
-  DoctorSchedule({required this.startTime, required this.endTime});
-}
-
-class Appointment {
-  DoctorSchedule doctorSchedule;
-
-  Appointment({required this.doctorSchedule});
-}
-
-class Doctor {
-  String name;
-  List<DoctorSchedule> schedules;
-  List<Appointment> appointments;
-
-  Doctor({required this.name, required this.schedules, required this.appointments});
-
-  List<DoctorSchedule> getFreeSchedules(DateTime date) {
-    List<DoctorSchedule> freeSchedules = [];
-
-    // Find all schedules for the given date
-    List<DoctorSchedule> schedulesForDate = schedules.where((schedule) => schedule.startTime.year == date.year && schedule.startTime.month == date.month && schedule.startTime.day == date.day).toList();
-
-    // Check availability for each schedule
-    for (var schedule in schedulesForDate) {
-      bool isBooked = false;
-
-      // Check if the schedule overlaps with any existing appointments
-      for (var appointment in appointments) {
-        if (appointment.doctorSchedule.startTime.isBefore(schedule.endTime) && appointment.doctorSchedule.endTime.isAfter(schedule.startTime)) {
-          isBooked = true;
-          break;
-        }
-      }
-
-      // If the schedule is not booked, add it to the freeSchedules list
-      if (!isBooked) {
-        freeSchedules.add(schedule);
-      }
-    }
-
-    return freeSchedules;
-  }
-}
   Future<Appointment> addAppointment(
       String email, String title, DateTime dateTime, String location) async {
     final docRef = await _appointmentsCollection.add({

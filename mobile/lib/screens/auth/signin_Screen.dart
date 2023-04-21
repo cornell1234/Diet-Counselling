@@ -1,5 +1,6 @@
 import 'package:diet_counselling/provider/auth_provider.dart';
 import 'package:diet_counselling/screens/auth/registration_Screen.dart';
+import 'package:diet_counselling/screens/landing_screen.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -60,23 +61,18 @@ class _signinFormState extends State<signinForm> {
                         child: TextButton(
                           onPressed: () async {
                             if (_formKey.currentState!.validate()) {
-                              print(emailController.text +
-                                  passwordController.text);
                               await authProvider.signInWithEmailAndPassword(
                                   emailController.text,
                                   passwordController.text);
                               // handle authentication success
+                              Navigator.pushReplacement(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) => LandingScreen()));
                             } else {
                               // handle validation errors
                             }
                           },
-                          child: const Text(
-                            'Login',
-                            style: TextStyle(
-                              fontSize: 16, // set font size
-                              color: Colors.white,
-                            ),
-                          ),
                           style: ButtonStyle(
                             backgroundColor:
                                 MaterialStateProperty.all<Color>(Colors.blue),
@@ -84,6 +80,13 @@ class _signinFormState extends State<signinForm> {
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8.0),
                             )),
+                          ),
+                          child: const Text(
+                            'Login',
+                            style: TextStyle(
+                              fontSize: 16, // set font size
+                              color: Colors.white,
+                            ),
                           ),
                         ),
                       ),
@@ -100,19 +103,19 @@ class _signinFormState extends State<signinForm> {
                                 MaterialPageRoute(
                                     builder: (context) => registrationForm()));
                           },
-                          child: const Text(
-                            'Register',
-                            style: TextStyle(
-                              fontSize: 16, // set font size
-                              color: Colors.grey,
-                            ),
-                          ),
                           style: ButtonStyle(
                             shape: MaterialStateProperty.all<
                                 RoundedRectangleBorder>(RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(
                                   8.0), // set border radius
                             )),
+                          ),
+                          child: const Text(
+                            'Register',
+                            style: TextStyle(
+                              fontSize: 16, // set font size
+                              color: Colors.grey,
+                            ),
                           ),
                         ),
                       ),
@@ -141,6 +144,17 @@ class _signinFormState extends State<signinForm> {
                               onPressed: () async {
                                 // your code here
                               },
+                              style: ButtonStyle(
+                                backgroundColor:
+                                    MaterialStateProperty.all<Color>(
+                                        Colors.white),
+                                shape: MaterialStateProperty.all<
+                                    RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(8.0),
+                                  ),
+                                ),
+                              ),
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -159,6 +173,15 @@ class _signinFormState extends State<signinForm> {
                                   ),
                                 ],
                               ),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 50,
+                            width: 150,
+                            child: ElevatedButton(
+                              onPressed: () async {
+                                // your code here
+                              },
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
@@ -170,15 +193,6 @@ class _signinFormState extends State<signinForm> {
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                          SizedBox(
-                            height: 50,
-                            width: 150,
-                            child: ElevatedButton(
-                              onPressed: () async {
-                                // your code here
-                              },
                               child: Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
@@ -196,17 +210,6 @@ class _signinFormState extends State<signinForm> {
                                     ),
                                   ),
                                 ],
-                              ),
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                                shape: MaterialStateProperty.all<
-                                    RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(8.0),
-                                  ),
-                                ),
                               ),
                             ),
                           ),
