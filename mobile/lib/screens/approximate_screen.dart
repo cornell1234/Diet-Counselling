@@ -60,33 +60,50 @@ final List<BodyType> bodyTypes = [
       maxWeight: 300),
 ];
 
-class BodyTypeScreen extends StatelessWidget {
+class BMICalculatorScreen extends StatefulWidget {
+  @override
+  _BMICalculatorScreenState createState() => _BMICalculatorScreenState();
+}
+
+class _BMICalculatorScreenState extends State<BMICalculatorScreen> {
+  late int _age;
+  late double _height;
+  late double _weight;
+  late String _bodyType;
+
+  void _calculateBMI() {
+    double heightInMeters = _height / 100.0;
+    double bmi = _weight / (heightInMeters * heightInMeters);
+
+    for (var bodyType in bodyTypes) {
+      if (bmi >= bodyType.minWeight && bmi <= bodyType.maxWeight) {
+        setState(() {
+          _bodyType = bodyType.name;
+        });
+        return;
+      }
+    }
+
+    setState(() {
+      _bodyType = "Unknown";
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _age = 20;
+    _height = 170.0;
+    _weight = 60.0;
+    _bodyType = "";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Body Types"),
-      ),
-      body: ListView.builder(
-        itemCount: bodyTypes.length,
-        itemBuilder: (context, index) {
-          final bodyType = bodyTypes[index];
-          return ListTile(
-            title: Text(bodyType.name),
-            subtitle: Text("${bodyType.minWeight}kg - ${bodyType.maxWeight}kg"),
-            leading: Image.network(
-              bodyType.image,
-              width: 80,
-              height: 80,
-              fit: BoxFit.cover,
-            ),
-            trailing: Icon(Icons.keyboard_arrow_right),
-            onTap: () {
-              // TODO: Navigate to body type details screen
-            },
-          );
-        },
-      ),
-    );
+        appBar: AppBar(
+          title: Text("BMI Calculator"),
+        ),
+        body: SingleChildScrollView(padding));
   }
 }
