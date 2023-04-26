@@ -30,6 +30,8 @@ class AuthProvider extends ChangeNotifier {
     }
   }
 
+  Future<void> continuewithfacebook() async {}
+
   saveCredintials(User data) {
     setUser('user', data.email);
   }
