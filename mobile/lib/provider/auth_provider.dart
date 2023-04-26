@@ -1,6 +1,7 @@
 import 'package:diet_counselling/models/user_model.dart';
 import 'package:diet_counselling/services/auth_services.dart';
 import 'package:diet_counselling/utils/utils.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 import 'package:flutter/material.dart';
 
@@ -31,6 +32,27 @@ class AuthProvider extends ChangeNotifier {
   }
 
   Future<void> continuewithfacebook() async {}
+
+// ...
+
+  Future<void> loginWithFacebook() async {
+    final LoginResult result = await FacebookAuth.instance.login();
+
+    switch (result.status) {
+      case loginStatus.success:
+        final AccessToken accessToken = result.accessToken!;
+        // TODO: Use the access token to authenticate the user.
+        break;
+      case loginStatus.cancelled:
+        // TODO: Handle the cancelled login.
+        break;
+      case loginStatus.failed:
+        // TODO: Handle the login failure.
+        break;
+      default:
+        break;
+    }
+  }
 
   saveCredintials(User data) {
     setUser('user', data.email);
