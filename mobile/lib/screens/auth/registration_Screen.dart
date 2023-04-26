@@ -19,7 +19,7 @@ class _registrationFormState extends State<registrationForm> {
     final authProvider = Provider.of<AuthProvider>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Registration Form'),
+        title: const Text('Registration Form'),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -29,17 +29,18 @@ class _registrationFormState extends State<registrationForm> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               TextFormField(
-                decoration: InputDecoration(labelText: 'Email'),
+                decoration: const InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
                 controller: email,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Password'),
+                decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
                 controller: password,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Confirm Password'),
+                decoration:
+                    const InputDecoration(labelText: 'Confirm Password'),
                 obscureText: true,
                 controller: confirmpassword,
               ),
