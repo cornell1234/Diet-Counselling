@@ -35,24 +35,10 @@ class AuthProvider extends ChangeNotifier {
 
 // ...
 
-  Future<void> loginWithFacebook() async {
-    final LoginResult result = await FacebookAuth.instance.login();
+  // Future<void> loginWithFacebook() async {
+  //   final LoginResult result = await FacebookAuth.instance.login();
 
-    switch (result.status) {
-      case loginStatus.success:
-        final AccessToken accessToken = result.accessToken!;
-        // TODO: Use the access token to authenticate the user.
-        break;
-      case loginStatus.cancelled:
-        // TODO: Handle the cancelled login.
-        break;
-      case loginStatus.failed:
-        // TODO: Handle the login failure.
-        break;
-      default:
-        break;
-    }
-  }
+  // }
 
   saveCredintials(User data) {
     setUser('user', data.email);
