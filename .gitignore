@@ -45,3 +45,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+#private file
+./lib/screens/ai_assistant/privates.dart
