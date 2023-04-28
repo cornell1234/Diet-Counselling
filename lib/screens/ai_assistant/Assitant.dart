@@ -1,6 +1,6 @@
 import 'package:dialog_flowtter/dialog_flowtter.dart';
 import 'package:diet_counselling/screens/ai_assistant/Messages.dart';
-import 'package:diet_counselling/screens/ai_assistant/privates.dart';
+// import 'package:diet_counselling/screens/ai_assistant/privates.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:get/get.dart';
@@ -18,13 +18,13 @@ class _AssitantState extends State<Assitant> {
   late DialogFlowtter dialogFlowtter;
   final TextEditingController _controller = TextEditingController();
   List<Map<String, dynamic>> messages = [];
-  Private _private = Private();
+  // Private _private = Private();
   int _selectedIndex = 0;
 
   @override
   void initState() {
-    DialogFlowtter jsonAuthInstance = DialogFlowtter.fromJson(_private.apiKey);
-    dialogFlowtter = jsonAuthInstance;
+    // DialogFlowtter jsonAuthInstance = DialogFlowtter.fromJson(_private.apiKey);
+    // dialogFlowtter = jsonAuthInstance;
     super.initState();
   }
 
