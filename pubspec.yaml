@@ -44,6 +44,9 @@ dependencies:
   http: ^0.13.5
   uuid: ^3.0.7
   shared_preferences: ^2.1.0
+  dialog_flowtter: ^0.3.3
+  google_fonts: ^3.0.1
+  get: ^4.6.5
   
 
 dev_dependencies:
