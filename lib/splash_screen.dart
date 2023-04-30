@@ -2,6 +2,7 @@ import 'package:diet_counselling/screens/auth/signin_Screen.dart';
 import 'package:diet_counselling/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 
+// ignore: camel_case_types
 class Splash_screen extends StatefulWidget {
   const Splash_screen({Key? key}) : super(key: key);
 
@@ -9,6 +10,7 @@ class Splash_screen extends StatefulWidget {
   Splash_screenState createState() => Splash_screenState();
 }
 
+// ignore: camel_case_types
 class Splash_screenState extends State<Splash_screen> {
   String accessToken = "";
   @override
