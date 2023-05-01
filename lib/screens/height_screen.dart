@@ -28,6 +28,7 @@ class _HeightScreenState extends State<HeightScreen> {
       ResolutionPreset.high,
     );
 
+
   class _HeightScreenState extends State<HeightScreen> {
   CameraController _controller;
   List<CameraDescription> _cameras;
