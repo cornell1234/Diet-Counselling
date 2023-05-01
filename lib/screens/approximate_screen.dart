@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:image/image.dart';
 
 class BodyType {
   final String name;
@@ -18,11 +19,11 @@ class BodyType {
 final List<BodyType> bodyTypes = [
   BodyType(
       name: "Thin",
-      image:
-          "https://images.pexels.com/photos/3651340/pexels-photo-3651340.jpeg",
+      image: AssetImage("assets/images/thin.PNG"),
       description: "BMI < 18.5",
       minWeight: 30,
       maxWeight: 55),
+  // Add more body types here
   BodyType(
       name: "Normal",
       image:
