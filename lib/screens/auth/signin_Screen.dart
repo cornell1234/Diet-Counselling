@@ -139,7 +139,7 @@ class _signinFormState extends State<signinForm> {
                         children: [
                           SizedBox(
                             height: 50,
-                            width: 150,
+                            width: 130,
                             child: ElevatedButton(
                               onPressed: () async {
                                 // your code here
@@ -160,14 +160,15 @@ class _signinFormState extends State<signinForm> {
                                 children: [
                                   Image.asset(
                                     'assets/icons/google_40px.png',
+                                    width: 30,
                                   ),
                                   SizedBox(
                                       width:
-                                          8), // add some space between icon and text
+                                          3), // add some space between icon and text
                                   Text(
                                     'Google',
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.grey[600],
                                     ),
                                   ),
@@ -177,7 +178,7 @@ class _signinFormState extends State<signinForm> {
                           ),
                           SizedBox(
                             height: 50,
-                            width: 150,
+                            width: 130,
                             child: ElevatedButton(
                               onPressed: () async {
                                 // your code here
@@ -198,14 +199,15 @@ class _signinFormState extends State<signinForm> {
                                 children: [
                                   Image.asset(
                                     'assets/icons/Facebook_40px.png',
+                                    width: 30,
                                   ),
                                   SizedBox(
                                       width:
-                                          8), // add some space between icon and text
+                                          3), // add some space between icon and text
                                   Text(
                                     'Facebook',
                                     style: TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       color: Colors.grey[600],
                                     ),
                                   ),

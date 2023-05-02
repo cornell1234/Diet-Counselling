@@ -51,7 +51,7 @@ dependencies:
   dialog_flowtter: ^0.3.3
   google_fonts: ^3.0.1
   get: ^4.6.5
-  
+  syncfusion_flutter_charts: ^21.1.41
 
 dev_dependencies:
   flutter_test:

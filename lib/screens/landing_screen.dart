@@ -2,8 +2,10 @@ import 'package:diet_counselling/screens/appointment_screen.dart';
 import 'package:diet_counselling/screens/chat_screen.dart';
 import 'package:diet_counselling/screens/dietplan_screen.dart';
 import 'package:diet_counselling/widgets/BMI_dialog.dart';
+import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LandingScreen extends StatefulWidget {
   const LandingScreen({Key? key}) : super(key: key);
@@ -13,6 +15,15 @@ class LandingScreen extends StatefulWidget {
 }
 
 class LandingScreenState extends State<LandingScreen> {
+  final TextEditingController heightController = TextEditingController();
+  final TextEditingController weightController = TextEditingController();
+  List<_SalesData> data = [
+    _SalesData('Jan', 35),
+    _SalesData('Feb', 28),
+    _SalesData('Mar', 34),
+    _SalesData('Apr', 32),
+    _SalesData('May', 40)
+  ];
   @override
   Widget build(BuildContext context) {
     var deviceSize = MediaQuery.of(context).size;
@@ -82,124 +93,77 @@ class LandingScreenState extends State<LandingScreen> {
               )
             ],
           ),
-          Expanded(
-            child: GridView.count(
-              mainAxisSpacing: 20.0,
-              crossAxisSpacing: 20.0,
-              crossAxisCount: 4,
-              childAspectRatio: (itemWidth / itemHeight),
-              children: [
-                InkWell(
-                  onTap: (){
-                    showCupertinoDialog(
-                          context: context,
-                          barrierDismissible: true,
-                          builder: (context) {
-                            return BMIDialog();
-                          });
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(8.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage('assets/icons/calculator_64px.png'),
-                            height: 40,
-                            width: 40,
-                          ),
-                          Text('BMI')
-                        ],
-                      ),
+          Column(
+            children: [
+              Container(
+                height: deviceSize.height * 0.2,
+                child: SfCartesianChart(
+                    primaryXAxis: CategoryAxis(
+                      labelStyle: TextStyle(fontSize: 0),
                     ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => dietplanScreen()),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(8.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage(
-                                'assets/icons/healthy_food_64px.png'),
-                            height: 40,
-                            width: 40,
-                          ),
-                          Text('Diet Plan')
-                        ],
+                    // Chart title
+                    // Enable legend
+                    legend: Legend(isVisible: true),
+                    // Enable tooltip
+                    tooltipBehavior: TooltipBehavior(enable: true),
+                    series: <ChartSeries<_SalesData, String>>[
+                      LineSeries<_SalesData, String>(
+                          dataSource: data,
+                          xValueMapper: (_SalesData sales, _) => sales.year,
+                          yValueMapper: (_SalesData sales, _) => sales.sales,
+                          name: 'Sales',
+                          // Enable data label
+                          dataLabelSettings:
+                              DataLabelSettings(isVisible: false))
+                    ]),
+              ),
+              Container(
+                  width: deviceSize.width * 1,
+                  child: Column(
+                    children: [
+                      CustomTextField(
+                        label: 'height',
+                        controller: heightController,
                       ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => appointmentScreen()),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(8.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage(
-                                'assets/icons/doctors_folder_64px.png'),
-                            height: 40,
-                            width: 40,
-                          ),
-                          Text('Appt')
-                        ],
+                      CustomTextField(
+                        label: 'weight',
+                        controller: weightController,
                       ),
-                    ),
-                  ),
-                ),
-                InkWell(
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => ChatScreen()),
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                        color: Colors.grey[200],
-                        borderRadius: BorderRadius.circular(8.0)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: const [
-                          Image(
-                            image: AssetImage('assets/icons/intelligence_50px.png'),
-                            height: 40,
-                            width: 40,
-                          ),
-                          Text('assistant')
-                        ],
+                      const SizedBox(
+                        height: 10,
                       ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        child: SizedBox(
+                          height: 55.0,
+                          width: double.infinity,
+                          child: TextButton(
+                            onPressed: () async {
+                              var BMI = int.parse(weightController.text) /
+                                  int.parse(heightController.text);
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                                  MaterialStateProperty.all<Color>(Colors.blue),
+                              shape: MaterialStateProperty.all<
+                                      RoundedRectangleBorder>(
+                                  RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(8.0),
+                              )),
+                            ),
+                            child: const Text(
+                              'Calculate',
+                              style: TextStyle(
+                                fontSize: 16, // set font size
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ))
+            ],
           )
         ]),
       ),
@@ -245,4 +209,11 @@ class LandingScreenState extends State<LandingScreen> {
           }),
     );
   }
+}
+
+class _SalesData {
+  _SalesData(this.year, this.sales);
+
+  final String year;
+  final double sales;
 }
