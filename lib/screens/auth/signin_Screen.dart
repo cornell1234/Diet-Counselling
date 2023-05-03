@@ -1,4 +1,5 @@
 import 'package:diet_counselling/provider/auth_provider.dart';
+import 'package:diet_counselling/screens/auth/reg_details.dart';
 import 'package:diet_counselling/screens/auth/registration_Screen.dart';
 import 'package:diet_counselling/screens/landing_screen.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
@@ -100,11 +101,24 @@ class _signinFormState extends State<signinForm> {
                           width: double.infinity,
                           child: OutlinedButton(
                             onPressed: () async {
-                              Navigator.pushReplacement(
+                              if (_formKey.currentState!.validate()) {
+                                await authProvider.registerWithEmailAndPassword(
+                                    emailController.text,
+                                    passwordController.text);
+                                // ignore: use_build_context_synchronously
+                                Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) =>
-                                          registrationForm()));
+                                      builder: (context) => regDetails()),
+                                );
+                              } else {
+                                const SnackBar(
+                                  content: Text('Authentification Faile'),
+                                  backgroundColor: Colors.red,
+                                  behavior: SnackBarBehavior.floating,
+                                  duration: Duration(seconds: 5),
+                                );
+                              }
                             },
                             style: ButtonStyle(
                               shape: MaterialStateProperty.all<

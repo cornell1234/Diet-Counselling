@@ -1,7 +1,10 @@
 // ignore_for_file: camel_case_types
 
+import 'package:diet_counselling/provider/appointment_provider.dart';
 import 'package:diet_counselling/screens/landing_screen.dart';
+import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class appointmentScreen extends StatefulWidget {
   const appointmentScreen({Key? key}) : super(key: key);
@@ -12,6 +15,8 @@ class appointmentScreen extends StatefulWidget {
 
 class appointmentScreenState extends State<appointmentScreen> {
   DateTime? _selectedDate;
+  final TextEditingController reasonController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
 
   Future<void> _selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -30,12 +35,13 @@ class appointmentScreenState extends State<appointmentScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final appointmentProvider = Provider.of<AppointmentProvider>(context);
     var deviceSize = MediaQuery.of(context).size;
     final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 3.2;
     final double itemWidth = deviceSize.width / 2;
     return Scaffold(
       appBar: AppBar(
-          backgroundColor: const Color.fromARGB(255, 238, 238, 238),
+          backgroundColor: Color.fromARGB(255, 248, 248, 248),
           elevation: 0,
           automaticallyImplyLeading: false,
           title: const Text(
@@ -65,30 +71,63 @@ class appointmentScreenState extends State<appointmentScreen> {
                   color: Colors.black,
                 )),
           ]),
-      body: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            children: [
-              // ... other widgets ...
-
-              TextFormField(
-                decoration: InputDecoration(
-                  labelText: 'Select Date',
-                  hintText: 'Pick a date',
-                  suffixIcon: GestureDetector(
-                    onTap: () => _selectDate(context),
-                    child: const Icon(Icons.calendar_today),
+      body: Center(
+        child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              children: [
+                CustomTextField(
+                  label: 'Reason',
+                  controller: reasonController,
+                ),
+                TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Select Date',
+                    hintText: 'Pick a date',
+                    suffixIcon: GestureDetector(
+                      onTap: () => _selectDate(context),
+                      child: const Icon(Icons.calendar_today),
+                    ),
+                  ),
+                  readOnly: true,
+                  controller: TextEditingController(
+                    text: _selectedDate == null
+                        ? ''
+                        : '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
                   ),
                 ),
-                readOnly: true,
-                controller: TextEditingController(
-                  text: _selectedDate == null
-                      ? ''
-                      : '${_selectedDate!.day}/${_selectedDate!.month}/${_selectedDate!.year}',
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 8),
+                  child: SizedBox(
+                    height: 55.0,
+                    width: double.infinity,
+                    child: TextButton(
+                      onPressed: () async {
+                        await appointmentProvider.addappointment(
+                              reasonController.text, _selectedDate!);
+                      },
+                      style: ButtonStyle(
+                        backgroundColor:
+                            MaterialStateProperty.all<Color>(Colors.blue),
+                        shape:
+                            MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(8.0),
+                        )),
+                      ),
+                      child: const Text(
+                        'Book',
+                        style: TextStyle(
+                          fontSize: 16, // set font size
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
                 ),
-              ),
-            ],
-          )),
+              ],
+            )),
+      ),
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
             BottomNavigationBarItem(
@@ -117,7 +156,7 @@ class appointmentScreenState extends State<appointmentScreen> {
           ],
           currentIndex: 2,
           unselectedItemColor: Colors.black,
-          selectedItemColor: Colors.amber[800],
+          selectedItemColor: Colors.blue,
           onTap: (int index) {
             if (index == 0) {
               Navigator.push(
