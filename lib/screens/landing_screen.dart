@@ -1,3 +1,6 @@
+import 'dart:ffi';
+
+import 'package:diet_counselling/provider/bmi_provider.dart';
 import 'package:diet_counselling/screens/appointment_screen.dart';
 import 'package:diet_counselling/screens/chat_screen.dart';
 import 'package:diet_counselling/screens/dietplan_screen.dart';
@@ -5,6 +8,7 @@ import 'package:diet_counselling/widgets/BMI_dialog.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 class LandingScreen extends StatefulWidget {
@@ -26,6 +30,7 @@ class LandingScreenState extends State<LandingScreen> {
   ];
   @override
   Widget build(BuildContext context) {
+    final BMIprovider = Provider.of<BMIProvider>(context);
     var deviceSize = MediaQuery.of(context).size;
     final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 4.2;
     final double itemWidth = deviceSize.width / 2;
@@ -111,7 +116,7 @@ class LandingScreenState extends State<LandingScreen> {
                           dataSource: data,
                           xValueMapper: (_SalesData sales, _) => sales.year,
                           yValueMapper: (_SalesData sales, _) => sales.sales,
-                          name: 'Sales',
+                          name: 'BMI READING',
                           // Enable data label
                           dataLabelSettings:
                               DataLabelSettings(isVisible: false))
@@ -139,8 +144,16 @@ class LandingScreenState extends State<LandingScreen> {
                           width: double.infinity,
                           child: TextButton(
                             onPressed: () async {
-                              var BMI = int.parse(weightController.text) /
-                                  int.parse(heightController.text);
+                              double bmi = double.parse(weightController.text) /
+                                  double.parse(heightController.text);
+                              await BMIprovider.addBMI(bmi);
+                              SnackBar(
+                                content: Text(
+                                    'Your BMI is ${bmi.toStringAsFixed(1)}'),
+                                backgroundColor: Colors.grey,
+                                behavior: SnackBarBehavior.floating,
+                                duration: Duration(seconds: 10),
+                              );
                             },
                             style: ButtonStyle(
                               backgroundColor:
