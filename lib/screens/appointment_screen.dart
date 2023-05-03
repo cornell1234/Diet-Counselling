@@ -1,6 +1,7 @@
 // ignore_for_file: camel_case_types
 
 import 'package:diet_counselling/provider/appointment_provider.dart';
+import 'package:diet_counselling/screens/ai_assistant/Messages.dart';
 import 'package:diet_counselling/screens/landing_screen.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,7 @@ class appointmentScreenState extends State<appointmentScreen> {
                     child: TextButton(
                       onPressed: () async {
                         await appointmentProvider.addappointment(
-                              reasonController.text, _selectedDate!);
+                            reasonController.text, _selectedDate!);
                       },
                       style: ButtonStyle(
                         backgroundColor:
@@ -163,7 +164,22 @@ class appointmentScreenState extends State<appointmentScreen> {
                 context,
                 MaterialPageRoute(builder: (context) => LandingScreen()),
               );
+            } else if (index == 1) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LandingScreen()),
+              );
             } else if (index == 2) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => LandingScreen()),
+              );
+            } else if (index == 3) {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => MessagesScreen(messages: [],)),
+              );
+            } else if (index == 4) {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => LandingScreen()),
