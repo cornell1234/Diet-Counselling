@@ -42,5 +42,6 @@ class AuthProvider extends ChangeNotifier {
 
   saveCredintials(User data) {
     setUser('user', data.email);
+    // setUsername('user', data.name);
   }
 }
