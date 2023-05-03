@@ -1,4 +1,6 @@
+import 'package:diet_counselling/provider/appointment_provider.dart';
 import 'package:diet_counselling/provider/auth_provider.dart';
+import 'package:diet_counselling/provider/bmi_provider.dart';
 import 'package:diet_counselling/provider/patient_provider.dart';
 import 'package:diet_counselling/splash_screen.dart';
 import 'package:diet_counselling/utils/service_locator.dart';
@@ -14,6 +16,8 @@ void main() async {
   runApp(MultiProvider(providers: [
     ChangeNotifierProvider(create: (_) => locator<AuthProvider>()),
     ChangeNotifierProvider(create: (_) => locator<PatientProvider>()),
+    ChangeNotifierProvider(create: (_) => locator<BMIProvider>()),
+    ChangeNotifierProvider(create: (_) => locator<AppointmentProvider>()),
   ], child: const MyApp()));
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
       statusBarColor: Color.fromARGB(0, 255, 255, 255),

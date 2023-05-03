@@ -1,10 +1,14 @@
 class BMI {
   final String id;
   final String name;
-  final int bmi;
+  final double bmi;
   final DateTime date;
 
-  BMI({required this.id, required this.name, required this.bmi, required this.date});
+  BMI(
+      {required this.id,
+      required this.name,
+      required this.bmi,
+      required this.date});
 
   Map<String, dynamic> toMap() {
     return {

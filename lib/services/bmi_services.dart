@@ -18,8 +18,9 @@ class BMIService {
         .toList();
   }
 
-  Future<BMI> addBMI(int bmi) async {
+  Future<BMI> addBMI(double bmi) async {
     var name = await getUser('user');
+    print(name);
     var date = DateTime.now();
     final docRef = await _bmiCollection.add({
       'name': name,

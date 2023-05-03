@@ -13,8 +13,9 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
     try {
-      _user = await _authService.signInWithEmailAndPassword(email, password);
-      saveCredintials(_user!);
+      User user =
+          await _authService.signInWithEmailAndPassword(email, password);
+      saveCredintials(user);
       notifyListeners();
     } catch (error) {
       print(error.toString());
@@ -33,14 +34,8 @@ class AuthProvider extends ChangeNotifier {
 
   Future<void> continuewithfacebook() async {}
 
-// ...
-
-  // Future<void> loginWithFacebook() async {
-  //   final LoginResult result = await FacebookAuth.instance.login();
-
-  // }
-
   saveCredintials(User data) {
+    print(data.email);
     setUser('user', data.email);
     // setUsername('user', data.name);
   }

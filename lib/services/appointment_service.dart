@@ -13,29 +13,28 @@ class AppointmentService {
               email: doc['email'],
               title: doc['title'],
               dateTime: doc['dateTime'].toDate(),
-              location: doc['location'],
             ))
         .toList();
   }
 
   Future<Appointment> addAppointment(
-      String email, String title, DateTime dateTime, String location) async {
+      String email, String title, DateTime dateTime) async {
     final docRef = await _appointmentsCollection.add({
       'email': email,
       'title': title,
       'dateTime': dateTime,
-      'location': location,
     });
     return Appointment(
       id: docRef.id,
       email: email,
       title: title,
       dateTime: dateTime,
-      location: location,
     );
   }
 
   Future<void> deleteAppointment(String id) async {
     await _appointmentsCollection.doc(id).delete();
   }
+
+  getAppointmentList() {}
 }

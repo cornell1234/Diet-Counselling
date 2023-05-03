@@ -8,10 +8,18 @@ class BMIProvider extends ChangeNotifier {
 
   BMI? get bmi => _bmi;
 
-  Future<void> addPatient(
-    int bmi) async {
+  Future<void> addBMI(double bmi) async {
     try {
       _bmi = await _bmiService.addBMI(bmi);
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  Future<void> getBMI() async {
+    try {
+      _bmi = (await _bmiService.getBMIList()) as BMI?;
       notifyListeners();
     } catch (error) {
       print(error.toString());
