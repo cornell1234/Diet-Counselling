@@ -63,8 +63,41 @@ class dietplanScreenState extends State<dietplanScreen> {
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0)),
+                      child: Column(children: [
+                        Text('Day'),
+                        Text('1'),
+                        Text(
+                            'Breakfast: 2 Scrambled eggs, bread with avocado, and apple'),
+                        Text('Snack: 1 apple, 1/4 cup of groundnuts'),
+                        Text(
+                            'Lunch: 2 lamps small size nsima, 2 pieces of chicken, 2 slices of tomato,1 slice of cheese, 2 carrots'),
+                        Text(
+                            'snack: 1 cup of plain yogurt, half cup of strawberries'),
+                        Text(
+                            'Dinner: 2 medium size sweet potato, vegetables(broccoli, carrots and peppers,), 1 banana'),
+                        Text('small bowl of slices peaches')
+                      ]),
+                    ),
+                    Container(
+                      height: deviceSize.height * 0.2,
+                      width: deviceSize.width * 0.1,
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(20.0)),
                       child: Column(
-                        children: [Text('Day'), Text('1')],
+                        children: [
+                          Text('Day'),
+                          Text('2'),
+                          Text(
+                              'Breakfast: Oatmeal/pumpkin, banana, toasted bread'),
+                          Text('Snack: 1 apple, peanut butter 2 spoons'),
+                          Text(
+                              'Lunch: 2 lamps small size nsima/spaghetti, fish, 2 slices of tomato, black beans'),
+                          Text('snack: 2 medium pineapple slices'),
+                          Text(
+                              'Dinner: brown rice, vegetables(broccoli, carrots and peppers,), beef stir-fry'),
+                          Text('small bowl plums/mangoes')
+                        ],
                       ),
                     ),
                     Container(
@@ -74,7 +107,19 @@ class dietplanScreenState extends State<dietplanScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Column(
-                        children: [Text('Day'), Text('2')],
+                        children: [
+                          Text('Day'),
+                          Text('3'),
+                          Text(
+                              'Breakfast: Oatmeal/ sweetpotatoes, yogurt with honey, berries /apples/ oranges'),
+                          Text('Snack: boiled egg'),
+                          Text(
+                              'Lunch: 2 slices of bread, 2 slices of tomato, 1 avocado'),
+                          Text('snack: 2 banana and 1 spoon peanut butter'),
+                          Text(
+                              'Dinner: roasted chicken, sweet potato and green beans'),
+                          Text('small bowl sliced oranges/mangoes')
+                        ],
                       ),
                     ),
                     Container(
@@ -84,7 +129,19 @@ class dietplanScreenState extends State<dietplanScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Column(
-                        children: [Text('Day'), Text('3')],
+                        children: [
+                          Text('Day'),
+                          Text('4'),
+                          Text(
+                              'Breakfast: pumpkins/waffles, peanut butter and banana'),
+                          Text('Snack: boiled egg/ carrots'),
+                          Text('Lunch: potato salad, medium size salad'),
+                          Text(
+                              'snack: plain yogurt/ oranges/ mangoes/ carrots'),
+                          Text(
+                              'Dinner: roasted chicken, brown rice and green beans'),
+                          Text('small bowl sliced peaches/mangoes')
+                        ],
                       ),
                     ),
                     Container(
@@ -94,7 +151,18 @@ class dietplanScreenState extends State<dietplanScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Column(
-                        children: [Text('Day'), Text('4')],
+                        children: [
+                          Text('Day'),
+                          Text('5'),
+                          Text(
+                              'Breakfast: scrambled eggs with salad and 1 slice of bread'),
+                          Text('Snack: apple slices'),
+                          Text('Lunch: Grilled chicken add vinegar, 1 avocado'),
+                          Text('snack: 2 bananas'),
+                          Text(
+                              'Dinner: beef meatballs, pasta/nsima and green beans'),
+                          Text('small bowl oranges/plums')
+                        ],
                       ),
                     ),
                     Container(
@@ -104,7 +172,18 @@ class dietplanScreenState extends State<dietplanScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Column(
-                        children: [Text('Day'), Text('5')],
+                        children: [
+                          Text('Day'),
+                          Text('6'),
+                          Text(
+                              'Breakfast: avocado/banana smoothie, peanut butter, milk  sweetpotatoes'),
+                          Text('Snack: boiled egg'),
+                          Text('Lunch: 1 corn, salad, roasted chicken'),
+                          Text('snack: plain yogurt, carrots'),
+                          Text(
+                              'Dinner: roasted chicken, sweet potato and vegetables'),
+                          Text('small bowl of sliced mangoes')
+                        ],
                       ),
                     ),
                     Container(
@@ -114,17 +193,18 @@ class dietplanScreenState extends State<dietplanScreen> {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(20.0)),
                       child: Column(
-                        children: [Text('Day'), Text('6')],
-                      ),
-                    ),
-                    Container(
-                      height: deviceSize.height * 0.2,
-                      width: deviceSize.width * 0.1,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Column(
-                        children: [Text('Day'), Text('7')],
+                        children: [
+                          Text('Day'),
+                          Text('7'),
+                          Text(
+                              'Breakfast: Avocado, sliced tomatoes, apples/ oranges'),
+                          Text('Snack: Carrots'),
+                          Text(
+                              'Lunch: Roasted chicken, sweet potatoes and vegetables'),
+                          Text('snack: cheese, 1 spoon peanut butter'),
+                          Text('Dinner: fish, sweet potato and green beans'),
+                          Text('small bowl oranges/mangoes')
+                        ],
                       ),
                     ),
                   ]),
