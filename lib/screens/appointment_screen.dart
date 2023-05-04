@@ -177,7 +177,10 @@ class appointmentScreenState extends State<appointmentScreen> {
             } else if (index == 3) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => MessagesScreen(messages: [],)),
+                MaterialPageRoute(
+                    builder: (context) => MessagesScreen(
+                          messages: [],
+                        )),
               );
             } else if (index == 4) {
               Navigator.push(
