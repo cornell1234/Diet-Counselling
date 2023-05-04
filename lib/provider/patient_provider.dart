@@ -17,4 +17,10 @@ class PatientProvider extends ChangeNotifier {
       print(error.toString());
     }
   }
+
+  Future<void> getPatient() async {
+    try {} catch (e) {
+      print(e.toString);
+    }
+  }
 }
