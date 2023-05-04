@@ -127,36 +127,6 @@ class dietplanScreenState extends State<dietplanScreen> {
                         children: [Text('Day'), Text('7')],
                       ),
                     ),
-                    Container(
-                      height: deviceSize.height * 0.2,
-                      width: deviceSize.width * 0.1,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Column(
-                        children: [Text('Day'), Text('8')],
-                      ),
-                    ),
-                    Container(
-                      height: deviceSize.height * 0.2,
-                      width: deviceSize.width * 0.1,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Column(
-                        children: [Text('Day'), Text('9')],
-                      ),
-                    ),
-                    Container(
-                      height: deviceSize.height * 0.2,
-                      width: deviceSize.width * 0.1,
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20.0)),
-                      child: Column(
-                        children: [Text('Day'), Text('10')],
-                      ),
-                    ),
                   ]),
             )
           ])),
