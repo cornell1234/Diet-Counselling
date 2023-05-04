@@ -5,6 +5,17 @@ class PatientService {
   final CollectionReference _patientsCollection =
       FirebaseFirestore.instance.collection('patients');
 
+  Future<Patient> getPatient(String id) async {
+    final doc = await _patientsCollection.doc(id).get();
+    return Patient(
+      id: doc.id,
+      name: doc['name'],
+      age: doc['age'],
+      gender: doc['gender'],
+      location: doc['location'],
+    );
+  }
+
   Future<List<Patient>> getPatients() async {
     final snapshot = await _patientsCollection.get();
     return snapshot.docs

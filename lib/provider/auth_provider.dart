@@ -15,7 +15,7 @@ class AuthProvider extends ChangeNotifier {
     try {
       User user =
           await _authService.signInWithEmailAndPassword(email, password);
-      saveCredintials(user);
+      saveCredentials(user.uid, user.email);
       notifyListeners();
     } catch (error) {
       print(error.toString());
@@ -30,13 +30,5 @@ class AuthProvider extends ChangeNotifier {
     } catch (error) {
       print(error.toString());
     }
-  }
-
-  Future<void> continuewithfacebook() async {}
-
-  saveCredintials(User data) {
-    print(data.email);
-    setUser('user', data.email);
-    // setUsername('user', data.name);
   }
 }
