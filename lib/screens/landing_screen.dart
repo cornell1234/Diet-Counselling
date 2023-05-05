@@ -204,7 +204,7 @@ class LandingScreenState extends State<LandingScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/icons/cafe_50px.png',
+                              'assets/icons/cafe_48px.png',
                               width: 60,
                               height: 60,
                             ),
@@ -224,7 +224,7 @@ class LandingScreenState extends State<LandingScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/icons/street_food_50px.png',
+                              'assets/icons/bagel_48px.png',
                               width: 60,
                               height: 60,
                             ),
@@ -244,7 +244,7 @@ class LandingScreenState extends State<LandingScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/icons/rice_bowl_50px.png',
+                              'assets/icons/rice_bowl_48px.png',
                               width: 60,
                               height: 60,
                             ),
@@ -272,7 +272,7 @@ class LandingScreenState extends State<LandingScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/icons/street_food_50px.png',
+                              'assets/icons/bagel_48px.png',
                               width: 60,
                               height: 60,
                             ),
@@ -292,7 +292,7 @@ class LandingScreenState extends State<LandingScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/icons/rice_bowl_50px.png',
+                              'assets/icons/rice_bowl_48px.png',
                               width: 60,
                               height: 60,
                             ),
@@ -312,7 +312,7 @@ class LandingScreenState extends State<LandingScreen> {
                         child: Column(
                           children: [
                             Image.asset(
-                              'assets/icons/salad_50px.png',
+                              'assets/icons/greek_salad_48px.png',
                               width: 60,
                               height: 60,
                             ),
