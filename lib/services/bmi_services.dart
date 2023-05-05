@@ -11,7 +11,7 @@ class BMIService {
     return snapshot.docs
         .map((doc) => BMI(
               id: doc.id,
-              name: doc['name'],
+              patient: doc['name'],
               bmi: doc['bmi'],
               date: doc['date'].toDate(),
             ))
@@ -19,21 +19,23 @@ class BMIService {
   }
 
   Future<BMI> addBMI(double bmi) async {
-    var name = await getUser('user');
-    print(name);
-    var date = DateTime.now();
-    final docRef = await _bmiCollection.add({
-      'name': name,
-      'bmi': bmi,
-      'date': date,
-    });
-    return BMI(
-      id: docRef.id,
-      name: name,
-      bmi: bmi,
-      date: date,
-    );
-  }
+  var patient = await getCredentials();
+  String? email= patient['email'];
+  print(patient['email']);
+  var date = DateTime.now();
+  final docRef = await _bmiCollection.add({
+    'patient': patient['email'],
+    'bmi': bmi,
+    'date': date,
+  });
+  return BMI(
+    id: docRef.id,
+    bmi: bmi,
+    date: date, 
+    patient: '',
+  );
+}
+
 
   Future<void> updateBMI(String id, String name, int bmi, DateTime date) async {
     await _bmiCollection.doc(id).update({
