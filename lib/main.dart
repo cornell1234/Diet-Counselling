@@ -38,7 +38,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
           primaryColor: const Color(0xFF010101),
-          scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255)),
+          scaffoldBackgroundColor: const Color.fromARGB(255, 238, 238, 238)),
       home: const Splash_screen(),
     );
   }

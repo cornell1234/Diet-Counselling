@@ -19,15 +19,15 @@ class AppointmentService {
   }
 
   Future<Appointment> addAppointment(String title, DateTime dateTime) async {
-    var email = getUser('user');
+    var user = await getCredentials();
     final docRef = await _appointmentsCollection.add({
-      'email': email,
+      'email': user['email'],
       'title': title,
       'dateTime': dateTime,
     });
     return Appointment(
       id: docRef.id,
-      email: email,
+      email: user['email'] ?? '',
       title: title,
       dateTime: dateTime,
     );

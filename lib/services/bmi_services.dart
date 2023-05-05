@@ -6,12 +6,26 @@ class BMIService {
   final CollectionReference _bmiCollection =
       FirebaseFirestore.instance.collection('bmi');
 
+  Future<List<BMI>> getpatientBMIList() async {
+    var patient = await getCredentials();
+    final snapshot =
+        await _bmiCollection.where('patient', isEqualTo: patient['email']).get();
+    return snapshot.docs
+        .map((doc) => BMI(
+              id: doc.id,
+              patient: doc['patient'],
+              bmi: doc['bmi'],
+              date: doc['date'].toDate(),
+            ))
+        .toList();
+  }
+
   Future<List<BMI>> getBMIList() async {
     final snapshot = await _bmiCollection.get();
     return snapshot.docs
         .map((doc) => BMI(
               id: doc.id,
-              name: doc['name'],
+              patient: doc['name'],
               bmi: doc['bmi'],
               date: doc['date'].toDate(),
             ))
@@ -19,19 +33,20 @@ class BMIService {
   }
 
   Future<BMI> addBMI(double bmi) async {
-    var name = await getUser('user');
-    print(name);
+    var patient = await getCredentials();
+    String? email = patient['email'];
+    print(patient['email']);
     var date = DateTime.now();
     final docRef = await _bmiCollection.add({
-      'name': name,
+      'patient': patient['email'],
       'bmi': bmi,
       'date': date,
     });
     return BMI(
       id: docRef.id,
-      name: name,
       bmi: bmi,
       date: date,
+      patient: '',
     );
   }
 

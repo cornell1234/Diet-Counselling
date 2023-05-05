@@ -25,4 +25,13 @@ class BMIProvider extends ChangeNotifier {
       print(error.toString());
     }
   }
+
+  Future<void> getpatientBMI() async {
+    try {
+      List<BMI> patientBMIs = await _bmiService.getpatientBMIList();
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+    }
+  }
 }

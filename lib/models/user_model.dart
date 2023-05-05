@@ -1,24 +1,24 @@
 import 'package:firebase_auth/firebase_auth.dart';
 
-class User {
+class CustomUser {
   final String uid;
   final String email;
   final String displayName;
   final String photoURL;
 
-  User({
+  CustomUser({
     required this.uid,
     required this.email,
     required this.displayName,
     required this.photoURL,
   });
 
-  factory User.fromFirebaseUser(User user) {
-    return User(
+  factory CustomUser.fromFirebaseUser(User user) {
+    return CustomUser(
       uid: user.uid,
-      email: user.email,
-      displayName: user.displayName,
-      photoURL: user.photoURL,
+      email: user.email!,
+      displayName: user.displayName ?? '',
+      photoURL: user.photoURL ?? '',
     );
   }
 }
