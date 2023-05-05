@@ -43,9 +43,6 @@ dependencies:
   cloud_firestore: ^4.5.0
   http: ^0.13.5
   uuid: ^3.0.7
-  sdk: flutter
-  flutter_local_notifications: ^5.1.0+2
-  shared_preferences: ^2.0.12
   flutter_native_timezone: ^1.0.6
   camera: ^0.9.4+5
   path_provider: ^2.0.2
