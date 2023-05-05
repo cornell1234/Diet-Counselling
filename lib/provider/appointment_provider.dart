@@ -8,9 +8,10 @@ class AppointmentProvider extends ChangeNotifier {
 
   Appointment? get appointment => _appointment;
 
-  Future<void> addappointment(DateTime date, DateTime dateTime) async {
+  Future<void> addappointment(String title, DateTime date) async {
     try {
-      _appointment = await _appointmentService.addAppointment(date);
+      _appointment =
+          await _appointmentService.addAppointment(title, date);
       notifyListeners();
     } catch (error) {
       print(error.toString());

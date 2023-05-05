@@ -417,7 +417,7 @@ class LandingScreenState extends State<LandingScreen> {
             } else if (index == 2) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => appointmentScreen()),
+                MaterialPageRoute(builder: (context) => LandingScreen()),
               );
             } else if (index == 3) {
               Navigator.push(
