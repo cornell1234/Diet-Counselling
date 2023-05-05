@@ -5,6 +5,7 @@ import 'package:diet_counselling/provider/patient_provider.dart';
 import 'package:diet_counselling/splash_screen.dart';
 import 'package:diet_counselling/utils/service_locator.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
@@ -40,5 +41,26 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: const Color.fromARGB(255, 255, 255, 255)),
       home: const Splash_screen(),
     );
+  }
+
+  Future<void> main() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+    final initializationSettingsAndroid =
+        AndroidInitializationSettings('app_icon');
+    final initializationSettingsIOS = IOSInitializationSettings();
+    final initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
+        onSelectNotification: selectNotification);
+
+    runApp(MyApp());
+  }
+
+  Future<void> selectNotification(String? payload) async {
+    if (payload != null) {
+      debugPrint('notification payload: $payload');
+    }
   }
 }

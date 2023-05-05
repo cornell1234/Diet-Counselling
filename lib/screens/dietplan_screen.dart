@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import 'package:diet_counselling/screens/landing_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -177,7 +179,7 @@ class dietplanScreenState extends State<dietplanScreen> {
                           Text('6'),
                           Text(
                               'Breakfast: avocado/banana smoothie, peanut butter, milk  sweetpotatoes'),
-                          Text('Snack: boiled egg'),
+                          Text('Snack: boiled egg/handfull groundnuts'),
                           Text('Lunch: 1 corn, salad, roasted chicken'),
                           Text('snack: plain yogurt, carrots'),
                           Text(

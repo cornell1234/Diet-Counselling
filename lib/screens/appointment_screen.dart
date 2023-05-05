@@ -105,7 +105,7 @@ class appointmentScreenState extends State<appointmentScreen> {
                     child: TextButton(
                       onPressed: () async {
                         await appointmentProvider.addappointment(
-                            reasonController.text, _selectedDate!);
+                            reasonController.text as DateTime, _selectedDate!);
                       },
                       style: ButtonStyle(
                         backgroundColor:
