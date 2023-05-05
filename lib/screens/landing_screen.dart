@@ -1,10 +1,14 @@
 import 'dart:ffi';
 
+import 'package:diet_counselling/models/bmi_model.dart';
 import 'package:diet_counselling/provider/bmi_provider.dart';
+import 'package:diet_counselling/screens/ai_assistant/Assitant.dart';
 import 'package:diet_counselling/screens/appointment_screen.dart';
 import 'package:diet_counselling/screens/chat_screen.dart';
 import 'package:diet_counselling/screens/dietplan_screen.dart';
+import 'package:diet_counselling/services/bmi_services.dart';
 import 'package:diet_counselling/widgets/BMI_dialog.dart';
+import 'package:diet_counselling/widgets/appointment_dialog.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -21,13 +25,31 @@ class LandingScreen extends StatefulWidget {
 class LandingScreenState extends State<LandingScreen> {
   final TextEditingController heightController = TextEditingController();
   final TextEditingController weightController = TextEditingController();
-  List<_SalesData> data = [
-    _SalesData('Jan', 35),
-    _SalesData('Feb', 28),
-    _SalesData('Mar', 34),
-    _SalesData('Apr', 32),
-    _SalesData('May', 40)
-  ];
+
+  final BMIService _bmiService = BMIService();
+
+  Future<List<PatientsBMI>> getPatientBMIData() async {
+    try {
+      List<BMI> patientBMIs = await _bmiService.getpatientBMIList();
+      List<PatientsBMI> data =
+          patientBMIs.map((bmi) => PatientsBMI.fromBMI(bmi)).toList();
+      return data;
+    } catch (error) {
+      print(error.toString());
+      return [];
+    }
+  }
+
+  @override
+  void initState() {
+    final bmiprovider = Provider.of<BMIProvider>(context, listen: false);
+
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      Provider.of<BMIProvider>(context, listen: false).getpatientBMI();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final BMIprovider = Provider.of<BMIProvider>(context);
@@ -42,141 +64,321 @@ class LandingScreenState extends State<LandingScreen> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                'Hello Cornell',
-                style: TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.grey[900],
-                ),
-              ),
               Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  Stack(
-                    children: [
-                      IconButton(
-                        iconSize: 30,
-                        onPressed: () {
-                          // your code here
-                        },
-                        icon: Icon(Icons.notifications_none_rounded),
-                      ),
-                      Positioned(
-                        top: 6.0,
-                        right: 6.0,
-                        child: Container(
-                          padding: EdgeInsets.all(2.0),
-                          decoration: BoxDecoration(
-                            color: Colors.red,
-                            borderRadius: BorderRadius.circular(10.0),
-                          ),
-                          constraints: BoxConstraints(
-                            minWidth: 16.0,
-                            minHeight: 16.0,
-                          ),
-                          child: Text(
-                            '2',
-                            style: TextStyle(
-                              color: Colors.white,
-                              fontSize: 10.0,
-                            ),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    ],
+                  Image.asset(
+                    'assets/icons/BAH_Logo.png',
+                    width: 50,
+                    height: 50,
                   ),
-                  IconButton(
-                    iconSize: 30,
-                    onPressed: () {
-                      // your code here
-                    },
-                    icon: Icon(Icons.person_2_outlined),
+                  Text(
+                    'BAH DIET APP',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.grey[900],
+                    ),
                   ),
                 ],
               )
             ],
           ),
-          Column(
-            children: [
-              Container(
-                height: deviceSize.height * 0.2,
-                child: SfCartesianChart(
-                    primaryXAxis: CategoryAxis(
-                      labelStyle: TextStyle(fontSize: 0),
+          Container(
+            padding: EdgeInsets.all(5.0),
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Body Mass Index Progress',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                            )),
+                      ),
                     ),
-                    // Chart title
-                    // Enable legend
-                    legend: Legend(isVisible: true),
-                    // Enable tooltip
-                    tooltipBehavior: TooltipBehavior(enable: true),
-                    series: <ChartSeries<_SalesData, String>>[
-                      LineSeries<_SalesData, String>(
-                          dataSource: data,
-                          xValueMapper: (_SalesData sales, _) => sales.year,
-                          yValueMapper: (_SalesData sales, _) => sales.sales,
-                          name: 'BMI READING',
-                          // Enable data label
-                          dataLabelSettings:
-                              DataLabelSettings(isVisible: false))
-                    ]),
-              ),
-              Container(
-                  width: deviceSize.width * 1,
-                  child: Column(
-                    children: [
-                      CustomTextField(
-                        label: 'height',
-                        controller: heightController,
-                      ),
-                      CustomTextField(
-                        label: 'weight',
-                        controller: weightController,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 8),
-                        child: SizedBox(
-                          height: 55.0,
-                          width: double.infinity,
-                          child: TextButton(
-                            onPressed: () async {
-                              double bmi = double.parse(weightController.text) /
-                                  double.parse(heightController.text);
-                              await BMIprovider.addBMI(bmi);
-                              SnackBar(
-                                content: Text(
-                                    'Your BMI is ${bmi.toStringAsFixed(1)}'),
-                                backgroundColor: Colors.grey,
-                                behavior: SnackBarBehavior.floating,
-                                duration: Duration(seconds: 10),
-                              );
-                            },
-                            style: ButtonStyle(
-                              backgroundColor:
-                                  MaterialStateProperty.all<Color>(Colors.blue),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(8.0),
-                              )),
-                            ),
-                            child: const Text(
-                              'Calculate',
-                              style: TextStyle(
-                                fontSize: 16, // set font size
+                    InkWell(
+                      onTap: () {
+                        showCupertinoDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (context) {
+                              return BMIDialog();
+                            });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: Text(
+                            'Calculate',
+                            style: TextStyle(
                                 color: Colors.white,
-                              ),
-                            ),
+                                decoration: TextDecoration.none,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400),
                           ),
                         ),
                       ),
-                    ],
-                  ))
-            ],
+                    )
+                  ],
+                ),
+                Container(
+                  height: deviceSize.height * 0.27,
+                  child: FutureBuilder<List<PatientsBMI>>(
+                    future: getPatientBMIData(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return CircularProgressIndicator();
+                      } else if (snapshot.hasError) {
+                        return Text('Error: ${snapshot.error}');
+                      } else {
+                        List<PatientsBMI> data = snapshot.data ?? [];
+                        return SfCartesianChart(
+                          primaryXAxis: CategoryAxis(),
+                          legend: Legend(
+                            isVisible: true,
+                            position: LegendPosition.bottom,
+                          ),
+                          series: <ChartSeries<PatientsBMI, String>>[
+                            LineSeries<PatientsBMI, String>(
+                              dataSource: data,
+                              xValueMapper: (PatientsBMI bmi, _) => bmi.year,
+                              yValueMapper: (PatientsBMI bmi, _) => bmi.bmi,
+                              name: 'BMI READING',
+                              // Enable data label
+                              dataLabelSettings:
+                                  DataLabelSettings(isVisible: false),
+                            ),
+                          ],
+                        );
+                      }
+                    },
+                  ),
+                )
+              ],
+            ),
+          ),
+          Container(
+            margin: EdgeInsets.symmetric(vertical: 15),
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                const Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text('Diet Plan',
+                        style: TextStyle(
+                          fontWeight: FontWeight.w500,
+                          fontSize: 18,
+                        )),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      child: Container(
+                        width: deviceSize.width * 0.23,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/cafe_50px.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                            Text('Break Fast')
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: Container(
+                        width: deviceSize.width * 0.23,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/street_food_50px.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                            Text('Snack')
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: Container(
+                        width: deviceSize.width * 0.23,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/rice_bowl_50px.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                            Text('Lunch')
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    InkWell(
+                      child: Container(
+                        width: deviceSize.width * 0.23,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/street_food_50px.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                            Text('Snack')
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: Container(
+                        width: deviceSize.width * 0.23,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/rice_bowl_50px.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                            Text('Dinner')
+                          ],
+                        ),
+                      ),
+                    ),
+                    InkWell(
+                      child: Container(
+                        width: deviceSize.width * 0.23,
+                        padding: EdgeInsets.all(5),
+                        decoration: BoxDecoration(
+                          color: Color.fromARGB(255, 241, 241, 241),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        child: Column(
+                          children: [
+                            Image.asset(
+                              'assets/icons/salad_50px.png',
+                              width: 60,
+                              height: 60,
+                            ),
+                            Text('Extra')
+                          ],
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.all(10.0),
+            decoration: BoxDecoration(
+              color: Color.fromARGB(255, 255, 255, 255),
+              borderRadius: BorderRadius.circular(10),
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text('Appointments',
+                            style: TextStyle(
+                              fontWeight: FontWeight.w500,
+                              fontSize: 18,
+                            )),
+                      ),
+                    ),
+                    InkWell(
+                      onTap: () {
+                        showCupertinoDialog(
+                            context: context,
+                            barrierDismissible: true,
+                            builder: (context) {
+                              return AppointmentDialog();
+                            });
+                      },
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: Colors.blue,
+                          borderRadius: BorderRadius.circular(5),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: Text(
+                            'Book',
+                            style: TextStyle(
+                                color: Colors.white,
+                                decoration: TextDecoration.none,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w400),
+                          ),
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ],
+            ),
           )
         ]),
       ),
@@ -187,21 +389,12 @@ class LandingScreenState extends State<LandingScreen> {
               label: 'Home',
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/icons/healthy_food_50px.png')),
-              label: 'Diet',
-            ),
-            BottomNavigationBarItem(
-              icon:
-                  ImageIcon(AssetImage('assets/icons/health_checkup_50px.png')),
-              label: 'Appointment',
-            ),
-            BottomNavigationBarItem(
               icon: ImageIcon(AssetImage('assets/icons/intelligence_50px.png')),
               label: 'AI Assistant',
             ),
             BottomNavigationBarItem(
-              icon: ImageIcon(AssetImage('assets/icons/graph_report_50px.png')),
-              label: 'Report',
+              icon: ImageIcon(AssetImage('assets/icons/account_50px.png')),
+              label: 'Profile',
             ),
           ],
           currentIndex: 0,
@@ -216,7 +409,10 @@ class LandingScreenState extends State<LandingScreen> {
             } else if (index == 1) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LandingScreen()),
+                MaterialPageRoute(
+                    builder: (context) => const Assitant(
+                          title: 'My assistant',
+                        )),
               );
             } else if (index == 2) {
               Navigator.push(
@@ -226,7 +422,10 @@ class LandingScreenState extends State<LandingScreen> {
             } else if (index == 3) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LandingScreen()),
+                MaterialPageRoute(
+                    builder: (context) => Assitant(
+                          title: 'My assistant',
+                        )),
               );
             } else if (index == 4) {
               Navigator.push(
@@ -239,9 +438,13 @@ class LandingScreenState extends State<LandingScreen> {
   }
 }
 
-class _SalesData {
-  _SalesData(this.year, this.sales);
+class PatientsBMI {
+  PatientsBMI(this.year, this.bmi);
 
   final String year;
-  final double sales;
+  final double bmi;
+
+  factory PatientsBMI.fromBMI(BMI bmi) {
+    return PatientsBMI(bmi.date.toString(), bmi.bmi.toDouble());
+  }
 }

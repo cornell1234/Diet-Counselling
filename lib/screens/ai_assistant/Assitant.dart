@@ -34,8 +34,8 @@ class _AssitantState extends State<Assitant> {
       appBar: AppBar(
         title: Text(widget.title, style: GoogleFonts.openSans()),
         centerTitle: true,
-        backgroundColor: Colors.purple[600],
-        foregroundColor: Colors.white,
+        backgroundColor: Color.fromARGB(255, 243, 243, 243),
+        foregroundColor: Color.fromARGB(255, 75, 75, 75),
       ),
       body: Column(
         children: [
