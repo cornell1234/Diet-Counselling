@@ -13,25 +13,31 @@ class AuthProvider extends ChangeNotifier {
   CustomUser? get user => _user;
 
   Future<void> signInWithEmailAndPassword(String email, String password) async {
-  try {
-    User? user = await _authService.signInWithEmailAndPassword(email, password);
-    if (user != null) {
-      CustomUser customUser = CustomUser.fromFirebaseUser(user);
-      print(customUser);
-      saveCredentials(customUser.uid, customUser.email);
-      notifyListeners();
+    try {
+      User? user =
+          await _authService.signInWithEmailAndPassword(email, password);
+      if (user != null) {
+        CustomUser customUser = CustomUser.fromFirebaseUser(user);
+        print(customUser);
+        saveCredentials(customUser.uid, customUser.email);
+        notifyListeners();
+      }
+    } catch (error) {
+      print(error.toString());
     }
-  } catch (error) {
-    print(error.toString());
   }
-}
-
 
   Future<void> registerWithEmailAndPassword(
       String email, String password) async {
     try {
-      _user = await _authService.registerWithEmailAndPassword(email, password);
-      notifyListeners();
+      User? user =
+          await _authService.registerWithEmailAndPassword(email, password);
+      if (user != null) {
+        CustomUser customUser = CustomUser.fromFirebaseUser(user);
+        print(customUser);
+        saveCredentials(customUser.uid, customUser.email);
+        notifyListeners();
+      }
     } catch (error) {
       print(error.toString());
     }
