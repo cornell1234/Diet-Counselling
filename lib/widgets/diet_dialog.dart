@@ -1,3 +1,4 @@
+import 'package:diet_counselling/utils/get_meals.dart';
 import 'package:flutter/material.dart';
 
 // BREAKFAST
@@ -9,13 +10,22 @@ class BreakfastDialog extends StatefulWidget {
 }
 
 class BreakfastDialogState extends State<BreakfastDialog> {
+  String breakfastData = '';
+
+  @override
+  void initState() {
+    super.initState();
+    // Call the getMeal function here and assign the result to breakfastData
+    breakfastData = getMeal('2', 'Breakfast', '18');
+  }
+  
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
         shape:
             RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
         title: const Text('Breakfast'),
-        content: Text('data'));
+        content: Text(breakfastData));
   }
 }
 //BREAKFAST

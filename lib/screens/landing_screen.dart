@@ -8,6 +8,7 @@ import 'package:diet_counselling/screens/ai_assistant/Assitant.dart';
 import 'package:diet_counselling/services/bmi_services.dart';
 import 'package:diet_counselling/widgets/BMI_dialog.dart';
 import 'package:diet_counselling/widgets/appointment_dialog.dart';
+import 'package:diet_counselling/widgets/diet_dialog.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -195,6 +196,14 @@ class LandingScreenState extends State<LandingScreen> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       InkWell(
+                        onTap: (){
+                          showCupertinoDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (context) {
+                                return BreakfastDialog();
+                              });
+                        },
                         child: Container(
                           width: deviceSize.width * 0.23,
                           padding: EdgeInsets.all(5),
