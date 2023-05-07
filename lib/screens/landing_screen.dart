@@ -201,7 +201,7 @@ class LandingScreenState extends State<LandingScreen> {
                               context: context,
                               barrierDismissible: true,
                               builder: (context) {
-                                return BreakfastDialog();
+                                return const BreakfastDialog();
                               });
                         },
                         child: Container(

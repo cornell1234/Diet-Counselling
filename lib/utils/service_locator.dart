@@ -1,10 +1,12 @@
 import 'package:diet_counselling/provider/appointment_provider.dart';
 import 'package:diet_counselling/provider/auth_provider.dart';
 import 'package:diet_counselling/provider/bmi_provider.dart';
+import 'package:diet_counselling/provider/dietplan_provider.dart';
 import 'package:diet_counselling/provider/patient_provider.dart';
 import 'package:diet_counselling/services/appointment_service.dart';
 import 'package:diet_counselling/services/auth_services.dart';
 import 'package:diet_counselling/services/bmi_services.dart';
+import 'package:diet_counselling/services/dietplan_service.dart';
 import 'package:diet_counselling/services/patient_service.dart';
 import 'package:get_it/get_it.dart';
 
@@ -20,4 +22,7 @@ void initGetit() {
   locator
       .registerLazySingleton<AppointmentProvider>(() => AppointmentProvider());
   locator.registerLazySingleton<AppointmentService>(() => AppointmentService());
+  locator
+      .registerLazySingleton<DietPlanProvider>(() => DietPlanProvider());
+  locator.registerLazySingleton<DietPlanService>(() => DietPlanService());
 }
