@@ -8,10 +8,13 @@ class AppointmentProvider extends ChangeNotifier {
 
   Appointment? get appointment => _appointment;
 
+  List<Appointment>? _appointments;
+
+  List<Appointment>? get appointments => _appointments;
+
   Future<void> addappointment(String title, DateTime date) async {
     try {
-      _appointment =
-          await _appointmentService.addAppointment(title, date);
+      _appointment = await _appointmentService.addAppointment(title, date);
       notifyListeners();
     } catch (error) {
       print(error.toString());
@@ -20,7 +23,19 @@ class AppointmentProvider extends ChangeNotifier {
 
   Future<void> getPatientsAppointment() async {
     try {
-      List<Appointment> patientappointments = await _appointmentService.getAppointments();
+      _appointments = await _appointmentService.getAppointments();
+      print('_appointments');
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+    }
+  }
+
+  Future<void> deleteAppointment(String id) async {
+    try {
+      await _appointmentService.deleteAppointment(id);
+      // Remove the deleted appointment from the local list
+      _appointments?.removeWhere((appointment) => appointment.id == id);
       notifyListeners();
     } catch (error) {
       print(error.toString());

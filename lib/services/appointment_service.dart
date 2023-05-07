@@ -7,6 +7,7 @@ class AppointmentService {
       FirebaseFirestore.instance.collection('appointments');
 
   Future<List<Appointment>> getAppointments() async {
+    print('running');
         var patient = await getCredentials();
     final snapshot =
         await _appointmentsCollection.where('email', isEqualTo: patient['email']).get();

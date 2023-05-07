@@ -45,12 +45,14 @@ class LandingScreenState extends State<LandingScreen> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
       Provider.of<BMIProvider>(context, listen: false).getpatientBMI();
+      Provider.of<AppointmentProvider>(context, listen: false)
+          .getPatientsAppointment();
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    final BMIprovider = Provider.of<BMIProvider>(context);
+    final appointmentProvider = Provider.of<AppointmentProvider>(context);
     var deviceSize = MediaQuery.of(context).size;
     final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 4.2;
     final double itemWidth = deviceSize.width / 2;
@@ -58,359 +60,374 @@ class LandingScreenState extends State<LandingScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.fromLTRB(8, 30, 8, 0),
-        child: Column(children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  Image.asset(
-                    'assets/icons/BAH_Logo.png',
-                    width: 50,
-                    height: 50,
-                  ),
-                  Text(
-                    'BAH DIET APP',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.grey[900],
-                    ),
-                  ),
-                ],
-              )
-            ],
-          ),
-          Container(
-            padding: EdgeInsets.all(5.0),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
+        child: SingleChildScrollView(
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Body Mass Index Progress',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                            )),
+                    Image.asset(
+                      'assets/icons/BAH_Logo.png',
+                      width: 50,
+                      height: 50,
+                    ),
+                    Text(
+                      'BAH DIET APP',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.grey[900],
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        showCupertinoDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            builder: (context) {
-                              return BMIDialog();
-                            });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(5.0),
-                          child: Text(
-                            'Calculate',
-                            style: TextStyle(
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                    )
                   ],
-                ),
-                Container(
-                  height: deviceSize.height * 0.27,
-                  child: FutureBuilder<List<PatientsBMI>>(
-                    future: getPatientBMIData(),
-                    builder: (context, snapshot) {
-                      if (snapshot.connectionState == ConnectionState.waiting) {
-                        return CircularProgressIndicator();
-                      } else if (snapshot.hasError) {
-                        return Text('Error: ${snapshot.error}');
-                      } else {
-                        List<PatientsBMI> data = snapshot.data ?? [];
-                        return SfCartesianChart(
-                          primaryXAxis: CategoryAxis(),
-                          legend: Legend(
-                            isVisible: true,
-                            position: LegendPosition.bottom,
-                          ),
-                          series: <ChartSeries<PatientsBMI, String>>[
-                            LineSeries<PatientsBMI, String>(
-                              dataSource: data,
-                              xValueMapper: (PatientsBMI bmi, _) => bmi.year,
-                              yValueMapper: (PatientsBMI bmi, _) => bmi.bmi,
-                              name: 'BMI READING',
-                              // Enable data label
-                              dataLabelSettings:
-                                  DataLabelSettings(isVisible: false),
-                            ),
-                          ],
-                        );
-                      }
-                    },
-                  ),
                 )
               ],
             ),
-          ),
-          Container(
-            margin: EdgeInsets.symmetric(vertical: 15),
-            padding: EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              children: [
-                const Padding(
-                  padding: EdgeInsets.all(8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text('Diet Plan',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 18,
-                        )),
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      child: Container(
-                        width: deviceSize.width * 0.23,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 241, 241, 241),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/icons/cafe_48px.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            Text('Break Fast')
-                          ],
+            Container(
+              padding: EdgeInsets.all(5.0),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Body Mass Index Progress',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                              )),
                         ),
                       ),
-                    ),
-                    InkWell(
-                      child: Container(
-                        width: deviceSize.width * 0.23,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 241, 241, 241),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/icons/bagel_48px.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            Text('Snack')
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      child: Container(
-                        width: deviceSize.width * 0.23,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 241, 241, 241),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/icons/rice_bowl_48px.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            Text('Lunch')
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    InkWell(
-                      child: Container(
-                        width: deviceSize.width * 0.23,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 241, 241, 241),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/icons/bagel_48px.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            Text('Snack')
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      child: Container(
-                        width: deviceSize.width * 0.23,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 241, 241, 241),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/icons/rice_bowl_48px.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            Text('Dinner')
-                          ],
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      child: Container(
-                        width: deviceSize.width * 0.23,
-                        padding: EdgeInsets.all(5),
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 241, 241, 241),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          children: [
-                            Image.asset(
-                              'assets/icons/greek_salad_48px.png',
-                              width: 60,
-                              height: 60,
-                            ),
-                            Text('Extra')
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.all(10.0),
-            decoration: BoxDecoration(
-              color: Color.fromARGB(255, 255, 255, 255),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text('Appointments',
-                            style: TextStyle(
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                            )),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        showCupertinoDialog(
-                            context: context,
-                            barrierDismissible: true,
-                            builder: (context) {
-                              return AppointmentDialog();
-                            });
-                      },
-                      child: Container(
-                        decoration: BoxDecoration(
-                          color: Colors.blue,
-                          borderRadius: BorderRadius.circular(5),
-                        ),
-                        child: const Padding(
-                          padding: EdgeInsets.all(5.0),
-                          child: Text(
-                            'Book',
-                            style: TextStyle(
-                                color: Colors.white,
-                                decoration: TextDecoration.none,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w400),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-                Consumer<AppointmentProvider>(
-                  builder: (context, appointmentProvider, _) {
-                    List<Appointment> appointments = appointmentProvider
-                        .appointment as List<Appointment>; // Null check
-
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      scrollDirection: Axis.vertical,
-                      itemCount: appointments.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        Appointment appointment = appointments[index];
-                        return Container(
-                          margin: const EdgeInsets.fromLTRB(
-                            0.0,
-                            5.0,
-                            0.0,
-                            5.0,
-                          ),
+                      InkWell(
+                        onTap: () {
+                          showCupertinoDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (context) {
+                                return BMIDialog();
+                              });
+                        },
+                        child: Container(
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 255, 255, 255),
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Text(
+                              'Calculate',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Container(
+                    height: deviceSize.height * 0.27,
+                    child: FutureBuilder<List<PatientsBMI>>(
+                      future: getPatientBMIData(),
+                      builder: (context, snapshot) {
+                        if (snapshot.connectionState == ConnectionState.waiting) {
+                          return CircularProgressIndicator();
+                        } else if (snapshot.hasError) {
+                          return Text('Error: ${snapshot.error}');
+                        } else {
+                          List<PatientsBMI> data = snapshot.data ?? [];
+                          return SfCartesianChart(
+                            primaryXAxis: CategoryAxis(),
+                            legend: Legend(
+                              isVisible: true,
+                              position: LegendPosition.bottom,
+                            ),
+                            series: <ChartSeries<PatientsBMI, String>>[
+                              LineSeries<PatientsBMI, String>(
+                                dataSource: data,
+                                xValueMapper: (PatientsBMI bmi, _) => bmi.year,
+                                yValueMapper: (PatientsBMI bmi, _) => bmi.bmi,
+                                name: 'BMI READING',
+                                // Enable data label
+                                dataLabelSettings:
+                                    DataLabelSettings(isVisible: false),
+                              ),
+                            ],
+                          );
+                        }
+                      },
+                    ),
+                  )
+                ],
+              ),
+            ),
+            Container(
+              margin: EdgeInsets.symmetric(vertical: 15),
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text('Diet Plan',
+                          style: TextStyle(
+                            fontWeight: FontWeight.w500,
+                            fontSize: 18,
+                          )),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        child: Container(
+                          width: deviceSize.width * 0.23,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 241, 241, 241),
                             borderRadius: BorderRadius.circular(10),
                           ),
-                          child: ListTile(
-                            horizontalTitleGap: 0,
-                            title: Text(appointment.title),
-                            subtitle: Text("${appointment.dateTime}"),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/icons/cafe_48px.png',
+                                width: 60,
+                                height: 60,
+                              ),
+                              Text('Break Fast')
+                            ],
                           ),
-                        );
-                      },
-                    );
-                  },
-                )
-              ],
+                        ),
+                      ),
+                      InkWell(
+                        child: Container(
+                          width: deviceSize.width * 0.23,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 241, 241, 241),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/icons/bagel_48px.png',
+                                width: 60,
+                                height: 60,
+                              ),
+                              Text('Snack')
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        child: Container(
+                          width: deviceSize.width * 0.23,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 241, 241, 241),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/icons/rice_bowl_48px.png',
+                                width: 60,
+                                height: 60,
+                              ),
+                              Text('Lunch')
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: [
+                      InkWell(
+                        child: Container(
+                          width: deviceSize.width * 0.23,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 241, 241, 241),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/icons/bagel_48px.png',
+                                width: 60,
+                                height: 60,
+                              ),
+                              Text('Snack')
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        child: Container(
+                          width: deviceSize.width * 0.23,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 241, 241, 241),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/icons/rice_bowl_48px.png',
+                                width: 60,
+                                height: 60,
+                              ),
+                              Text('Dinner')
+                            ],
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        child: Container(
+                          width: deviceSize.width * 0.23,
+                          padding: EdgeInsets.all(5),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 241, 241, 241),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Column(
+                            children: [
+                              Image.asset(
+                                'assets/icons/greek_salad_48px.png',
+                                width: 60,
+                                height: 60,
+                              ),
+                              Text('Extra')
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
-          )
-        ]),
+            Container(
+              padding: EdgeInsets.all(10.0),
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 255, 255, 255),
+                borderRadius: BorderRadius.circular(10),
+              ),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Padding(
+                        padding: EdgeInsets.all(8.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text('Appointments',
+                              style: TextStyle(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 18,
+                              )),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          showCupertinoDialog(
+                              context: context,
+                              barrierDismissible: true,
+                              builder: (context) {
+                                return AppointmentDialog();
+                              });
+                        },
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: Colors.blue,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Text(
+                              'Book',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                  Consumer<AppointmentProvider>(
+                    builder: (context, appointments, _) {
+                      var appointment = appointments.appointments;
+                      if (appointment == null || appointment.isEmpty) {
+                        return Text('No appointments available');
+                      }
+                      return ListView.builder(
+                        shrinkWrap: true,
+                        scrollDirection: Axis.vertical,
+                        itemCount: appointment.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          var Appointment = appointment[index];
+                          return Container(
+                            margin: const EdgeInsets.fromLTRB(2.0, 1.0, 2.0, 5.0),
+                            decoration: BoxDecoration(
+                              color: Color.fromARGB(255, 243, 243, 243),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: ListTile(
+                              horizontalTitleGap: 0,
+                              title: Text(Appointment.title),
+                              subtitle: Text("${Appointment.dateTime}"),
+                              trailing: InkWell(
+                                  onTap: () async {
+                                    await appointmentProvider
+                                        .deleteAppointment(Appointment.id);
+                                    ScaffoldMessenger.of(context)
+                                        .showSnackBar(const SnackBar(
+                                      content:
+                                          Text('Appointment has been canceled'),
+                                      backgroundColor: Colors.red,
+                                      behavior: SnackBarBehavior.floating,
+                                      duration: Duration(seconds: 10),
+                                    ));
+                                  },
+                                  child: const ImageIcon(
+                                      AssetImage('assets/icons/cancel_50px.png'),
+                                      color: Colors.red,
+                                      size: 40)),
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  )
+                ],
+              ),
+            )
+          ]),
+        ),
       ),
       bottomNavigationBar: BottomNavigationBar(
           items: const <BottomNavigationBarItem>[
