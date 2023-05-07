@@ -1,15 +1,13 @@
 import 'dart:ffi';
 
+import 'package:diet_counselling/models/appointment_model.dart';
 import 'package:diet_counselling/models/bmi_model.dart';
+import 'package:diet_counselling/provider/appointment_provider.dart';
 import 'package:diet_counselling/provider/bmi_provider.dart';
 import 'package:diet_counselling/screens/ai_assistant/Assitant.dart';
-import 'package:diet_counselling/screens/appointment_screen.dart';
-import 'package:diet_counselling/screens/chat_screen.dart';
-import 'package:diet_counselling/screens/dietplan_screen.dart';
 import 'package:diet_counselling/services/bmi_services.dart';
 import 'package:diet_counselling/widgets/BMI_dialog.dart';
 import 'package:diet_counselling/widgets/appointment_dialog.dart';
-import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -377,6 +375,38 @@ class LandingScreenState extends State<LandingScreen> {
                     )
                   ],
                 ),
+                Consumer<AppointmentProvider>(
+                  builder: (context, appointmentProvider, _) {
+                    List<Appointment> appointments = appointmentProvider
+                        .appointment as List<Appointment>; // Null check
+
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: appointments.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        Appointment appointment = appointments[index];
+                        return Container(
+                          margin: const EdgeInsets.fromLTRB(
+                            0.0,
+                            5.0,
+                            0.0,
+                            5.0,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: ListTile(
+                            horizontalTitleGap: 0,
+                            title: Text(appointment.title),
+                            subtitle: Text("${appointment.dateTime}"),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                )
               ],
             ),
           )

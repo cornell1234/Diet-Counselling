@@ -18,10 +18,9 @@ class AppointmentProvider extends ChangeNotifier {
     }
   }
 
-  Future<void> getBMI() async {
+  Future<void> getPatientsAppointment() async {
     try {
-      _appointment =
-          (await _appointmentService.getAppointmentList()) as Appointment?;
+      List<Appointment> patientappointments = await _appointmentService.getAppointments();
       notifyListeners();
     } catch (error) {
       print(error.toString());

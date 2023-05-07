@@ -7,7 +7,9 @@ class AppointmentService {
       FirebaseFirestore.instance.collection('appointments');
 
   Future<List<Appointment>> getAppointments() async {
-    final snapshot = await _appointmentsCollection.get();
+        var patient = await getCredentials();
+    final snapshot =
+        await _appointmentsCollection.where('email', isEqualTo: patient['email']).get();
     return snapshot.docs
         .map((doc) => Appointment(
               id: doc.id,
@@ -36,6 +38,4 @@ class AppointmentService {
   Future<void> deleteAppointment(String id) async {
     await _appointmentsCollection.doc(id).delete();
   }
-
-  getAppointmentList() {}
 }
