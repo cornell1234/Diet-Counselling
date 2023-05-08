@@ -34,4 +34,13 @@ class BMIProvider extends ChangeNotifier {
       print(error.toString());
     }
   }
+
+  Future<void> getLatestBMIByEmail() async {
+    try {
+      _bmi = await _bmiService.getLatestBMIByEmail();
+      notifyListeners();
+    } catch (error) {
+      print(error.toString());
+    }
+  }
 }

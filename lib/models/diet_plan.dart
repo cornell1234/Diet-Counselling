@@ -1,6 +1,6 @@
 class DietPlan {
   String id;
-  String startDate;
+  DateTime startDate;
   String email;
 
   DietPlan({required this.id, required this.startDate, required this.email});
@@ -11,13 +11,5 @@ class DietPlan {
       'startDate': startDate,
       'email': email,
     };
-  }
-
-  factory DietPlan.fromJson(Map<String, dynamic> json) {
-    return DietPlan(
-      id: json['id'],
-      startDate: json['startDate'],
-      email: json['email'],
-    );
   }
 }

@@ -54,6 +54,7 @@ dependencies:
   get: ^4.6.5
   syncfusion_flutter_charts: ^21.1.41
   rxdart: ^0.27.7
+  date_format: ^2.0.7
 
 dev_dependencies:
   flutter_test:

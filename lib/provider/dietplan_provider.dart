@@ -12,9 +12,9 @@ class DietPlanProvider with ChangeNotifier {
 
   List<DietPlan>? get dietPlans => _dietPlans;
 
-  Future<void> createDietPlan(DietPlan dietPlan) async {
+  Future<void> createDietPlan() async {
     try {
-      await _dietPlanService.createDietPlan(dietPlan);
+      await _dietPlanService.createDietPlan();
       _dietPlan = dietPlan;
       notifyListeners();
     } catch (error) {
@@ -22,9 +22,10 @@ class DietPlanProvider with ChangeNotifier {
     }
   }
 
-  Future<void> getDietPlanByEmail(String email) async {
+  Future<void> getDietPlanByEmail() async {
     try {
-      _dietPlan = await _dietPlanService.getDietPlanByEmail(email);
+      _dietPlan = await _dietPlanService.getDietPlanByEmail();
+      print(_dietPlan);
       notifyListeners();
     } catch (error) {
       print(error.toString());

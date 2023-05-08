@@ -1,9 +1,7 @@
-import 'dart:ffi';
-
-import 'package:diet_counselling/models/appointment_model.dart';
 import 'package:diet_counselling/models/bmi_model.dart';
 import 'package:diet_counselling/provider/appointment_provider.dart';
 import 'package:diet_counselling/provider/bmi_provider.dart';
+import 'package:diet_counselling/provider/dietplan_provider.dart';
 import 'package:diet_counselling/screens/ai_assistant/Assitant.dart';
 import 'package:diet_counselling/services/bmi_services.dart';
 import 'package:diet_counselling/widgets/BMI_dialog.dart';
@@ -48,12 +46,15 @@ class LandingScreenState extends State<LandingScreen> {
       Provider.of<BMIProvider>(context, listen: false).getpatientBMI();
       Provider.of<AppointmentProvider>(context, listen: false)
           .getPatientsAppointment();
+      Provider.of<DietPlanProvider>(context, listen: false)
+          .getDietPlanByEmail();
     });
   }
 
   @override
   Widget build(BuildContext context) {
     final appointmentProvider = Provider.of<AppointmentProvider>(context);
+    final dietplanProvider = Provider.of<DietPlanProvider>(context);
     var deviceSize = MediaQuery.of(context).size;
     final double itemHeight = (deviceSize.height - kToolbarHeight - 24) / 4.2;
     final double itemWidth = deviceSize.width / 2;
@@ -141,8 +142,9 @@ class LandingScreenState extends State<LandingScreen> {
                     child: FutureBuilder<List<PatientsBMI>>(
                       future: getPatientBMIData(),
                       builder: (context, snapshot) {
-                        if (snapshot.connectionState == ConnectionState.waiting) {
-                          return CircularProgressIndicator();
+                        if (snapshot.connectionState ==
+                            ConnectionState.waiting) {
+                          return const Center(child: SizedBox(height: 50, child: CircularProgressIndicator()));
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
@@ -192,147 +194,227 @@ class LandingScreenState extends State<LandingScreen> {
                           )),
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        onTap: (){
-                          showCupertinoDialog(
-                              context: context,
-                              barrierDismissible: true,
-                              builder: (context) {
-                                return const BreakfastDialog();
-                              });
+                  Consumer<DietPlanProvider>(builder: (context, dietPlan, _) {
+                    var diet = dietPlan.dietPlan;
+                    print(diet);
+                    if (diet == null) {
+                      return Center(
+                          child: InkWell(
+                        onTap: () async {
+                          await dietplanProvider.createDietPlan();
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text('New diet plan created'),
+                            backgroundColor: Colors.green,
+                            behavior: SnackBarBehavior.floating,
+                            duration: Duration(seconds: 10),
+                          ));
                         },
                         child: Container(
-                          width: deviceSize.width * 0.23,
-                          padding: EdgeInsets.all(5),
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10),
+                            color: Colors.green,
+                            borderRadius: BorderRadius.circular(5),
                           ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/icons/cafe_48px.png',
-                                width: 60,
-                                height: 60,
-                              ),
-                              Text('Break Fast')
-                            ],
+                          child: const Padding(
+                            padding: EdgeInsets.all(5.0),
+                            child: Text(
+                              'New Diet plan',
+                              style: TextStyle(
+                                  color: Colors.white,
+                                  decoration: TextDecoration.none,
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w400),
+                            ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        child: Container(
-                          width: deviceSize.width * 0.23,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/icons/bagel_48px.png',
-                                width: 60,
-                                height: 60,
+                      ));
+                    }
+                    return Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) {
+                                      return const BreakfastDialog();
+                                    });
+                              },
+                              child: Container(
+                                width: deviceSize.width * 0.23,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/icons/cafe_48px.png',
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    const Text('Breakfast')
+                                  ],
+                                ),
                               ),
-                              Text('Snack')
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        child: Container(
-                          width: deviceSize.width * 0.23,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/icons/rice_bowl_48px.png',
-                                width: 60,
-                                height: 60,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) {
+                                      return const FirstsnackDialog();
+                                    });
+                              },
+                              child: Container(
+                                width: deviceSize.width * 0.23,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/icons/bagel_48px.png',
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    Text('Snack')
+                                  ],
+                                ),
                               ),
-                              Text('Lunch')
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      InkWell(
-                        child: Container(
-                          width: deviceSize.width * 0.23,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/icons/bagel_48px.png',
-                                width: 60,
-                                height: 60,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) {
+                                      return const LunchDialog();
+                                    });
+                              },
+                              child: Container(
+                                width: deviceSize.width * 0.23,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/icons/rice_bowl_48px.png',
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    Text('Lunch')
+                                  ],
+                                ),
                               ),
-                              Text('Snack')
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
-                      ),
-                      InkWell(
-                        child: Container(
-                          width: deviceSize.width * 0.23,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/icons/rice_bowl_48px.png',
-                                width: 60,
-                                height: 60,
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            InkWell(
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) {
+                                      return const SecondsnackDialog();
+                                    });
+                              },
+                              child: Container(
+                                width: deviceSize.width * 0.23,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/icons/bagel_48px.png',
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    Text('Snack')
+                                  ],
+                                ),
                               ),
-                              Text('Dinner')
-                            ],
-                          ),
-                        ),
-                      ),
-                      InkWell(
-                        child: Container(
-                          width: deviceSize.width * 0.23,
-                          padding: EdgeInsets.all(5),
-                          decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 241, 241, 241),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Column(
-                            children: [
-                              Image.asset(
-                                'assets/icons/greek_salad_48px.png',
-                                width: 60,
-                                height: 60,
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) {
+                                      return const DinnerDialog();
+                                    });
+                              },
+                              child: Container(
+                                width: deviceSize.width * 0.23,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/icons/rice_bowl_48px.png',
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    Text('Dinner')
+                                  ],
+                                ),
                               ),
-                              Text('Extra')
-                            ],
-                          ),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                showCupertinoDialog(
+                                    context: context,
+                                    barrierDismissible: true,
+                                    builder: (context) {
+                                      return const ExtraDialog();
+                                    });
+                              },
+                              child: Container(
+                                width: deviceSize.width * 0.23,
+                                padding: EdgeInsets.all(5),
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 241, 241, 241),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Column(
+                                  children: [
+                                    Image.asset(
+                                      'assets/icons/greek_salad_48px.png',
+                                      width: 60,
+                                      height: 60,
+                                    ),
+                                    Text('Extra')
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ],
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    );
+                  })
                 ],
               ),
             ),
@@ -400,7 +482,8 @@ class LandingScreenState extends State<LandingScreen> {
                         itemBuilder: (BuildContext context, int index) {
                           var Appointment = appointment[index];
                           return Container(
-                            margin: const EdgeInsets.fromLTRB(2.0, 1.0, 2.0, 5.0),
+                            margin:
+                                const EdgeInsets.fromLTRB(2.0, 1.0, 2.0, 5.0),
                             decoration: BoxDecoration(
                               color: Color.fromARGB(255, 243, 243, 243),
                               borderRadius: BorderRadius.circular(10),
@@ -423,7 +506,8 @@ class LandingScreenState extends State<LandingScreen> {
                                     ));
                                   },
                                   child: const ImageIcon(
-                                      AssetImage('assets/icons/cancel_50px.png'),
+                                      AssetImage(
+                                          'assets/icons/cancel_50px.png'),
                                       color: Colors.red,
                                       size: 40)),
                             ),

@@ -8,8 +8,10 @@ class BMIService {
 
   Future<List<BMI>> getpatientBMIList() async {
     var patient = await getCredentials();
-    final snapshot =
-        await _bmiCollection.where('patient', isEqualTo: patient['email']).get();
+    final snapshot = await _bmiCollection
+        .where('patient', isEqualTo: patient['email'])
+        .orderBy('date', descending: false)
+        .get();
     return snapshot.docs
         .map((doc) => BMI(
               id: doc.id,
@@ -18,6 +20,31 @@ class BMIService {
               date: doc['date'].toDate(),
             ))
         .toList();
+  }
+
+  Future<BMI?> getLatestBMIByEmail() async {
+    print('object');
+    var patient = await getCredentials();
+    final QuerySnapshot<Map<String, dynamic>> querySnapshot =
+        await _bmiCollection
+            .where('patient', isEqualTo: patient['email'])
+            .orderBy('date',
+                descending:
+                    true) // Order by the 'date' field in descending order
+            .limit(1)
+            .get() as QuerySnapshot<Map<String, dynamic>>;
+
+    if (querySnapshot.docs.isNotEmpty) {
+      final documentSnapshot = querySnapshot.docs.first;
+      return BMI(
+        id: documentSnapshot.id,
+        patient: documentSnapshot['patient'],
+        bmi: documentSnapshot['bmi'],
+        date: documentSnapshot['date'].toDate(),
+      );
+    }
+
+    return null;
   }
 
   Future<List<BMI>> getBMIList() async {
