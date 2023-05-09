@@ -37,8 +37,9 @@ class BMIDialogState extends State<BMIDialog> {
                 width: double.infinity,
                 child: TextButton(
                   onPressed: () async {
-                    double bmi = double.parse(weightController.text) /
-                        double.parse(heightController.text);
+                    double weight = double.parse(weightController.text);
+                    double height = double.parse(heightController.text);
+                    double bmi = weight / (height * height);
                     await BMIprovider.addBMI(bmi);
                     ScaffoldMessenger.of(context).showSnackBar(
                       SnackBar(
