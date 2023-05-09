@@ -88,7 +88,7 @@ class _profileScreenState extends State<profileScreen> {
                             },
                             style: ButtonStyle(
                               backgroundColor:
-                                  MaterialStateProperty.all<Color>(Colors.blue),
+                                  MaterialStateProperty.all<Color>(Colors.red),
                               shape: MaterialStateProperty.all<
                                       RoundedRectangleBorder>(
                                   RoundedRectangleBorder(
@@ -96,7 +96,7 @@ class _profileScreenState extends State<profileScreen> {
                               )),
                             ),
                             child: const Text(
-                              'Continue',
+                              'LOG OUT',
                               style: TextStyle(
                                 fontSize: 16, // set font size
                                 color: Colors.white,
