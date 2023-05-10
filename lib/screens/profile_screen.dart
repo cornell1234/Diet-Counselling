@@ -38,7 +38,7 @@ class _profileScreenState extends State<profileScreen> {
                       Padding(
                         padding: EdgeInsets.symmetric(vertical: 18),
                         child: Text(
-                          'Account details',
+                          'My Profile',
                           style: TextStyle(
                             fontSize: 24, // set font size
                             color: Colors.grey[900],

@@ -3,6 +3,7 @@ import 'package:diet_counselling/provider/appointment_provider.dart';
 import 'package:diet_counselling/provider/bmi_provider.dart';
 import 'package:diet_counselling/provider/dietplan_provider.dart';
 import 'package:diet_counselling/screens/ai_assistant/Assitant.dart';
+import 'package:diet_counselling/screens/profile_screen.dart';
 import 'package:diet_counselling/services/bmi_services.dart';
 import 'package:diet_counselling/widgets/BMI_dialog.dart';
 import 'package:diet_counselling/widgets/appointment_dialog.dart';
@@ -557,20 +558,7 @@ class LandingScreenState extends State<LandingScreen> {
             } else if (index == 2) {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => LandingScreen()),
-              );
-            } else if (index == 3) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => Assitant(
-                          title: 'My assistant',
-                        )),
-              );
-            } else if (index == 4) {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => LandingScreen()),
+                MaterialPageRoute(builder: (context) => profileScreen()),
               );
             }
           }),
