@@ -13,9 +13,9 @@ class regDetails extends StatefulWidget {
 
 class _regDetailsState extends State<regDetails> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController phonenumberController = TextEditingController();
 
   @override
@@ -46,16 +46,16 @@ class _regDetailsState extends State<regDetails> {
                         ),
                       ),
                       CustomTextField(
-                        label: 'Full Name',
-                        controller: fullnameController,
+                        label: 'email',
+                        controller: emailController,
                       ),
                       CustomTextField(
                         label: 'Age',
                         controller: ageController,
                       ),
                       CustomTextField(
-                        label: 'Location',
-                        controller: locationController,
+                        label: 'password',
+                        controller: passwordController,
                       ),
                       CustomTextField(
                         label: 'Phone Number',
@@ -73,9 +73,9 @@ class _regDetailsState extends State<regDetails> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 await patientProvider.addPatient(
-                                    fullnameController.text,
+                                    emailController.text,
                                     int.parse(ageController.text),
-                                    locationController.text,
+                                    passwordController.text,
                                     phonenumberController.text);
                                 Navigator.push(
                                   context,
