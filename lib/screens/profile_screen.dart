@@ -13,9 +13,9 @@ class profileScreen extends StatefulWidget {
 
 class _profileScreenState extends State<profileScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController fullnameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
-  final TextEditingController locationController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController phonenumberController = TextEditingController();
 
   @override
@@ -46,16 +46,16 @@ class _profileScreenState extends State<profileScreen> {
                         ),
                       ),
                       CustomTextField(
-                        label: 'Full Name',
-                        controller: fullnameController,
+                        label: 'Email',
+                        controller: emailController,
                       ),
                       CustomTextField(
                         label: 'Age',
                         controller: ageController,
                       ),
                       CustomTextField(
-                        label: 'Location',
-                        controller: locationController,
+                        label: 'Password',
+                        controller: passwordController,
                       ),
                       CustomTextField(
                         label: 'Phone Number',
@@ -73,14 +73,15 @@ class _profileScreenState extends State<profileScreen> {
                             onPressed: () async {
                               if (_formKey.currentState!.validate()) {
                                 await patientProvider.addPatient(
-                                    fullnameController.text,
+                                    emailController.text,
                                     int.parse(ageController.text),
-                                    locationController.text,
+                                    passwordController.text,
                                     phonenumberController.text);
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LandingScreen()),
+                                      builder: (context) =>
+                                          const LandingScreen()),
                                 );
                               } else {
                                 // handle validation errors
