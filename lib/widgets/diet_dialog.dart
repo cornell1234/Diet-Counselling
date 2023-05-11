@@ -91,7 +91,8 @@ class _BreakfastDialogState extends State<BreakfastDialog> {
               bmivalue = 40;
             }
             print(bmivalue);
-            mealData = getMeal(numberOfDays.toString(), 'Breakfast', bmivalue.toString());
+            mealData = getMeal(
+                numberOfDays.toString(), 'Breakfast', bmivalue.toString());
             return Text(mealData);
           });
         }));
@@ -157,7 +158,8 @@ class FirstsnackDialogState extends State<FirstsnackDialog> {
               bmivalue = 40;
             }
             print(bmivalue);
-            mealData = getMeal(numberOfDays.toString(), 'FirstSnack', bmivalue.toString());
+            mealData = getMeal(
+                numberOfDays.toString(), 'FirstSnack', bmivalue.toString());
             return Text(mealData);
           });
         }));
@@ -223,7 +225,8 @@ class LunchDialogState extends State<LunchDialog> {
               bmivalue = 40;
             }
             print(bmivalue);
-            mealData = getMeal(numberOfDays.toString(), 'Lunch', bmivalue.toString());
+            mealData =
+                getMeal(numberOfDays.toString(), 'Lunch', bmivalue.toString());
             return Text(mealData);
           });
         }));
@@ -289,7 +292,8 @@ class SecondsnackDialogState extends State<SecondsnackDialog> {
               bmivalue = 40;
             }
             print(bmivalue);
-            mealData = getMeal(numberOfDays.toString(), 'SecondSnack', bmivalue.toString());
+            mealData = getMeal(
+                numberOfDays.toString(), 'SecondSnack', bmivalue.toString());
             return Text(mealData);
           });
         }));
@@ -355,7 +359,8 @@ class DinnerDialogState extends State<DinnerDialog> {
               bmivalue = 40;
             }
             print(bmivalue);
-            mealData = getMeal(numberOfDays.toString(), 'Dinner', bmivalue.toString());
+            mealData =
+                getMeal(numberOfDays.toString(), 'Dinner', bmivalue.toString());
             return Text(mealData);
           });
         }));
@@ -421,7 +426,8 @@ class ExtraDialogState extends State<ExtraDialog> {
               bmivalue = 40;
             }
             print(bmivalue);
-            mealData = getMeal(numberOfDays.toString(), 'Extra', bmivalue.toString());
+            mealData =
+                getMeal(numberOfDays.toString(), 'Extra', bmivalue.toString());
             return Text(mealData);
           });
         }));

@@ -145,7 +145,10 @@ class LandingScreenState extends State<LandingScreen> {
                       builder: (context, snapshot) {
                         if (snapshot.connectionState ==
                             ConnectionState.waiting) {
-                          return const Center(child: SizedBox(height: 50, child: CircularProgressIndicator()));
+                          return const Center(
+                              child: SizedBox(
+                                  height: 50,
+                                  child: CircularProgressIndicator()));
                         } else if (snapshot.hasError) {
                           return Text('Error: ${snapshot.error}');
                         } else {
