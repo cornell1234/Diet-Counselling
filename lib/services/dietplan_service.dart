@@ -42,7 +42,7 @@ class DietPlanService {
         startDate: documentSnapshot['startDate'].toDate(),
       );
     }
-
+    print(querySnapshot);
     return null;
   }
 

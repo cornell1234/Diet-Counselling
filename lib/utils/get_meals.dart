@@ -290,5 +290,5 @@ String getMeal(String day, String mealType, String bmi) {
   }
 
   // Return an empty string if the meal is not found
-  return '';
+  return 'Diet Plan will start tomorrow';
 }
