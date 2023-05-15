@@ -1,7 +1,9 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:diet_counselling/provider/patient_provider.dart';
+import 'package:diet_counselling/screens/auth/signin_Screen.dart';
 import 'package:diet_counselling/screens/landing_screen.dart';
+import 'package:diet_counselling/utils/utils.dart';
 import 'package:diet_counselling/widgets/text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -71,20 +73,12 @@ class _profileScreenState extends State<profileScreen> {
                           width: double.infinity,
                           child: TextButton(
                             onPressed: () async {
-                              if (_formKey.currentState!.validate()) {
-                                await patientProvider.addPatient(
-                                    fullnameController.text,
-                                    int.parse(ageController.text),
-                                    locationController.text,
-                                    phonenumberController.text);
-                                Navigator.push(
+                              clear();
+                              Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                      builder: (context) => LandingScreen()),
+                                      builder: (context) => signinForm()),
                                 );
-                              } else {
-                                // handle validation errors
-                              }
                             },
                             style: ButtonStyle(
                               backgroundColor:
