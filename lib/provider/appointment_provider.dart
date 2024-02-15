@@ -17,17 +17,17 @@ class AppointmentProvider extends ChangeNotifier {
       _appointment = await _appointmentService.addAppointment(title, date);
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      print(error.toString()); // Print the error for debugging
     }
   }
 
   Future<void> getPatientsAppointment() async {
     try {
       _appointments = await _appointmentService.getAppointments();
-      print('_appointments');
+      print(_appointments); // Print the appointments for debugging
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      print(error.toString()); // Print the error for debugging
     }
   }
 
@@ -38,7 +38,7 @@ class AppointmentProvider extends ChangeNotifier {
       _appointments?.removeWhere((appointment) => appointment.id == id);
       notifyListeners();
     } catch (error) {
-      print(error.toString());
+      print(error.toString()); // Print the error for debugging
     }
   }
 }
