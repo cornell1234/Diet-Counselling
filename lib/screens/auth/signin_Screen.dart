@@ -113,7 +113,7 @@ class _signinFormState extends State<signinForm> {
                                 );
                               } else {
                                 const SnackBar(
-                                  content: Text('Authentification Faile'),
+                                  content: Text('Authentification Failed'),
                                   backgroundColor: Colors.red,
                                   behavior: SnackBarBehavior.floating,
                                   duration: Duration(seconds: 5),
